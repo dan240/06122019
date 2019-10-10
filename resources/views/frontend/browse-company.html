@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Londcap</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/custom.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/select2.min.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="{{ url('js/jquery.min.js')}}"></script>
+    <script src="{{ url('js/select2.min.js')}}"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/chosen/1.4.2/chosen.jquery.min.js'></script>
+    <script src="{{ url('js/popper.min.js')}}"></script>
+    <script src="{{ url('js/bootstrap.min.js')}}"></script>
+    
+</head>
+
+<body>
+<div class="header" id="myHeader">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="browse-company.html"><img src="images/Logo%20LondCap.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 col-xl-5">
+                        <ul class="navbar-nav left_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-investor.html"> Browse Investors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-company.html">Browse Company</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12 col-xl-7">
+
+                        <ul class="navbar-nav right_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Suggested Companies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="contactus.html">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="message.html"><img src="images/message.png"/ class="message-box"></a>
+                            </li>
+                            <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><i class="fas fa-user"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="company-profile.html">Company Profile</a>
+                                        <a href="investors-profile.html">Investor Profile</a>
+                                        <a href="#">Funding Goal</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalLong">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <div class=" signup_btn"><a class="nav-link" href="signup.html">Sign Up</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    </div>
+    <!------------------------------------------------------>
+    <section class="content-box">
+        <div class="container">
+            <div class="filter_div">
+                <div class="row">
+
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
+                        <div class="browse-name-search">
+                            <input type="text" placeholder="Search by company name" maxlength="40" id="browse-name-search" value="" autocomplete="off">
+                            <i class="fa fa-search" aria-hidden="true"></i>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12 ">
+                        <ul>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Types of Companies<i class="fas fa-chevron-down"></i></button>
+                                    <div class="dropdown-content">
+                                        <form>
+                                            <label class="check_container">Buy Side
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Venture Capital/private Equity
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Select All
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Funding Type<i class="fas fa-chevron-down"></i></button>
+                                    <div class="dropdown-content">
+                                        <form>
+                                            <label class="check_container">All Options
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Equity
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Convertible Debt
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Debt Financing
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Non Deal Roadshow
+                                                <input type="checkbox" checked="checked">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Royalty
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Industry
+                                                <input type="checkbox" checked="checked">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Not Looking Investment
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Select All
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Industry<i class="fas fa-chevron-down"></i></button>
+                                    <div class="dropdown-content">
+                                        <form>
+                                            <label class="check_container">Consumer Discretionary
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Industrials
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Health Care
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Information Technology
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Real Estate
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Materials
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Communication Services
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Financials
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Energy
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Utilities
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Consumer Staples
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Select All
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Country<i class="fas fa-chevron-down"></i></button>
+                                    <div class="dropdown-content">
+                                         <select id='selUser' style='width: 200px;'>
+                                            <option value='0'>-- Select User --</option>          
+                                            <option value='1'>Yogesh singh</option>  
+                                            <option value='2'>Sonarika Bhadoria</option>   
+                                            <option value='3'>Anil Singh</option>        
+                                            <option value='4'>Vishal Sahu</option>        
+                                            <option value='5'>Mayank Patidar</option>        
+                                            <option value='6'>Vijay Mourya</option>        
+                                            <option value='7'>Rakesh sahu</option> 
+                                        </select>  
+                                                                                <!-- Script -->
+                                        <script>
+                                        $(document).ready(function(){
+                                            
+                                            // Initialize select2
+                                            $("#selUser").select2();
+
+                                            // Read selected option
+                                            $('#but_read').click(function(){
+                                                var username = $('#selUser option:selected').text();
+                                                var userid = $('#selUser').val();
+                                           
+                                                $('#result').html("id : " + userid + ", name : " + username);
+                                            });
+                                        });
+                                        </script>
+                   
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <div class="dropdown">
+                                    <button class="dropbtn">City<i class="fas fa-chevron-down"></i></button>
+                                    <div class="dropdown-content">
+                                        <form>
+                                            <label class="check_container">Bago City
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Cabimas
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Caracas
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Dabgram
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Egypt
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                            <label class="check_container">Etawah
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="filter_div_in">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
+                        <ul>
+                            <li>
+                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    Pre-seed to series A
+                                </div>
+                            </li>
+                            <li>
+                                <div class="alert  alert-warning alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    Impact Investment
+                                </div>
+                            </li>
+                            <li>
+                                <div class="alert alert-warning alert-dismissible" role="alert">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                                    San Francisco, California, US
+                                </div>
+                            </li>
+                            <li>
+
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-3">
+                        <div class="browse-sort-filter-controls">
+                            <div class="browse-deals-alert">
+                                <a class="create-alert-signin">Create Alert</a>
+                            </div><!-- .browse-deals-alert -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="sorting">
+                <div class="row">
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                        <div class="browse-sort">
+                            <div class="dropdown">
+                                <button class="dropbtn">Sorted by: <span class="navy">Relevance<i class="fas fa-chevron-down" style="margin-left: 5px"></span></i></button>
+                                <div class="dropdown-content">
+                                    <a href="#">Newest</a>
+                                    <a href="#">End Date</a>
+                                    <a href="#">Funding Goal</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                        <nav aria-label="...">
+                            <ul class="pagination">
+                                <ul class="pagination pagination-sm">
+                                    <li class="page-item disabled">Showing<span class="blue"> 1-9 of 203</span> Total Results</li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" tabindex="-1">1</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                                </ul>
+                            </ul>
+                        </nav>
+                    </div>
+                    <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
+                        <div class="float-right">
+                            <div class="btn-group">
+                                <button class="btn" id="grid">
+                                    <img src="images/grid.png">
+                                </button>
+                                <button class="btn" id="list">
+                                    <img src="images/list.png">
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cards view-group">
+                <div class="row">
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-md-3 col-lg-3 col-sm-6 col-xs-12">
+                        <div class="card-content">
+                            <div class="card-img-top" style="background-image: url(images/41608_8238021.png)"></div>
+                            <div class="card-body">
+                                <div class="card-lead-investor ">
+                                    <div class="card-lead-investor-image">
+                                        <img src="images/user.png" alt="">
+                                    </div><!-- .card-lead-investor-image -->
+                                    <div class="card-lead-investor-name">
+                                        <h2>Lorem Ipsum</h2>
+                                    </div>
+                                </div>
+                                <h5 class="card-title">Job Title at Company Name</h5>
+                                <p class="company-location">
+                                    San Francisco, California, US </p>
+                                <div class="row region_div">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-xl-12">
+                                        <ul class="choosen_list">
+                                            <li class="gray">Technology</li>
+                                            <li class="skyblue">Investor</li>
+                                            <li class="gray">New york</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <p class="card-text">Some quick example text to build on the card title and make of the title and make up the bulk of the card's content.</p>
+                                <p class="sub-title">Industry</p>
+                                <div class="card-amount clearfix">
+                                    <div class="card-amount-raised"><strong>10,000 of 30K</strong></div>
+                                    <p><input type="range" min="1" max="100" value="30" class="slider-color" id="id1"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 col-xl-4"></div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 col-xl-4">
+                    <nav aria-label="...">
+                        <ul class="pagination">
+                            <ul class="pagination pagination-sm">
+                                <li class="page-item disabled">Showing<span class="blue"> 1-9 of 203</span> Total Results</li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#" tabindex="-1">1</a>
+                                </li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item"><a class="page-link" href="#">4</a></li>
+                            </ul>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12 col-xl-4"></div>
+            </div>
+        </div>
+    </section>
+
+    <!---------------------------footer------------------------>
+    <footer class="footer_in">
+        <div class="container">
+            <div class="footer-pages">
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Getting Started</li>
+                        <li><a href="#">Get Funded</a></li>
+                        <li><a href="#">Hot It Works</a></li>
+                        <li><a href="#">Sign Up</a></li>
+                        <li><a href="#">Log In</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="#">Browse Companies</a></li>
+                        <li><a href="#">Companies</a></li>
+                        <li><a href="#">People</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Legal</li>
+                        <li><a href="#">Terms of Use</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Testimonial</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">News &amp; Events</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+                    <ul>
+                        <li class="heading">Londcap</li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Investor FAQ</a></li>
+                        <li><a href="#">Knowledge Center</a></li>
+                    </ul>
+                </div><!-- end .column -->
+            </div>
+            <div class="notices clearfix">
+                <img src="images/Logo%20LondCap.png"/ style="margin: 0 auto; display: block">
+                <p class="copyright">Copyright © 2019 LondCap.com. All rights reserved.</p>
+            </div>
+            <div class="footer-message">
+                <p><strong>DISCLOSURE</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy <a href="#" target="_blank">Terms of Use</a> and <a href="#" target="_blank">Privacy Policy</a>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."<a href="#" target="_blank" rel="nofollow">accredited investors</a>" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took <a href="#" target="_blank" rel="nofollow">SEC</a> or <a href="#" target="_blank" rel="nofollow">FINRA</a>.</p>
+            </div>
+        </div>
+    </footer>
+        <!-- login Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Email</small>
+
+                        <input type="email" class="form-control" placeholder="">
+                    </div>
+          <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Password</small>
+
+                        <input type="password" class="form-control" placeholder="">
+                    </div>
+          <div class="forget">
+                <a href="forget-password.html">Forgot your password?</a>
+            </div>
+          <div class="form-group">
+                        <button type="submit" class="login-btn">Login</button>
+                    </div>
+          <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center">Log in with</p>
+          <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><button type="submit" class="linkedin-btn">Sign Up with LinkedIn</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <button type="submit" class="facebook-btn">Sign Up with Facebook</button></div>
+                    </div>
+            <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center"> New to LondCap? <a href="signup.html">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+    <!----------------------------------------------------->
+    <script>
+        $(document).ready(function() {
+            $('#list').click(function(event) {
+                event.preventDefault();
+                $('.cards .card').addClass('list-group-item');
+            });
+            $('#grid').click(function(event) {
+                event.preventDefault();
+                $('.cards .card').removeClass('list-group-item');
+                $('.cards .card').addClass('grid-group-item');
+            });
+        });
+    </script>
+    <!-----------------------header-sticky-scripts---------------------------->
+    <script>
+        window.onscroll = function() {
+            myFunction()
+        };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>

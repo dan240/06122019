@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Londcap</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="header" id="myHeader">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="browse-company.html"><img src="images/Logo%20LondCap.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 col-xl-5">
+                        <ul class="navbar-nav left_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-investor.html"> Browse Investors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-company.html">Browse Company</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12 col-xl-7">
+
+                        <ul class="navbar-nav right_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Suggested Companies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="message.html"><img src="images/message.png"/ class="message-box"></a>
+         <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><i class="fas fa-user"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="company-profile.html">Company Profile</a>
+                                        <a href="investors-profile.html">Investor Profile</a>
+                                        <a href="#">Funding Goal</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalLong">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <div class=" signup_btn"><a class="nav-link" href="signup.html">Sign Up</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    </div>
+    <!------------------------------------------------------>
+    <section class="inner-pages">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <h2 class="title">LondCap <span>Mail</span></h2>
+                    <div class="sidebar-menu">
+                        <ul>
+                            <li class="active"><a href="javascript:;" id="inbox-div">Inbox</a></li>
+                            <li><a href="javascript:;" id="outbox-div">Outbox</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-8 col-md-9 col-lg-9">
+                    <div class="messages-content">
+                        <div class="messages-header clearfix">
+                            <ul class="actions">
+                                <li class="compose"><a href="#" class="btn btn-compose">+ Compose New</a></li>
+                                <li class="delete"><a href="#">Delete</a></li>
+                                <li class="mark-unread"><a href="#">Mark Unread</a></li>
+                            </ul>
+                        </div><!-- .messages-header -->
+                     <div  id="inbox">
+                        <div class="user-messaging-empty" >
+                            <p>You have no messages</p>
+                        </div>
+
+                        <div class="row">
+                <div class="col-md-12">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end pull-right">
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Previous">
+                                    <span aria-hidden="true">«</span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#" aria-label="Next">
+                                    <span aria-hidden="true">»</span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+                    </div>
+                    </div>
+                    <div class="outbox_div" id="outbox" style="display:none;">
+                        <form method="post" id="message_form">
+        <table cellspacing="0" cellpadding="0" border="0" class="messages">
+          
+  <tbody><tr>
+    <td class="avatar">
+      <img class="view-message" rel="177391" src="https://d1us95wkqce0jo.cloudfront.net/site/company/team_member_image/209067_877172.jpg" alt="User">
+    </td>
+    <td class="envelope view-message" rel="177391">
+      <a href="detailed message.html" class="view-message" rel="177391">
+        <span class="sender">Josh Boyd</span>
+         
+        <br>
+        Please take part in my survey      </a>
+    </td>
+    <td class="meta">
+      <span class="timestamp">
+       5/8/2019
+12:08 PM
+
+      </span>
+      <a href="#" class="delete-message" rel="177391">
+        <span>Delete</span>
+      </a>
+    </td>
+    <td class="select">                      
+      <input type="checkbox" name="message_list[]" value="177391">
+    </td>
+  </tr>
+
+  <tr>
+    <td class="avatar">
+      <img class="view-message" rel="177390" src="https://d1us95wkqce0jo.cloudfront.net/site/user/profile/208891.240473.jpg" alt="User">
+    </td>
+    <td class="envelope view-message" rel="177390">
+      <a href="#" class="view-message" rel="177390">
+        <span class="sender">Jessica Mah</span>
+                  (3)
+         
+        <br>
+        Please take part in my survey      </a>
+    </td>
+    <td class="meta">
+        <span class="timestamp">
+       5/8/2019
+12:08 PM
+
+      </span>
+      <a href="#" class="delete-message" rel="177390">
+        <span>Delete</span>
+      </a>
+    </td>
+    <td class="select">                      
+      <input type="checkbox" name="message_list[]" value="177390">
+    </td>
+  </tr>
+        </tbody></table>
+        
+        
+        <input type="hidden" name="message_id" id="message_id" value="">
+        <input type="hidden" value="">
+      </form>
+                        </div>
+                       
+                        </div>
+                    </div>
+                </div>
+        
+    </section>
+    
+    <div class="new-message" style="display: none;">
+        <div class="user-message-header">
+            <h2>New Message</h2>
+            <a href="#" class="message-close">x</a>
+        </div><!-- .user-message-header -->
+        <div class="user-message-content">
+            <form class="form">
+                <div class="form-group">
+    <input type="email" class="form-control" placeholder="To:">
+  </div>
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Subject:">
+                </div><div class="form-group">
+    <textarea class="form-control" rows="6" placeholder="Message:"></textarea>
+                </div>
+  <button type="submit" class="btn btn-primary">Send Message</button>
+            </form><!-- #quick-message-send -->
+        </div><!-- user-message-content -->
+    </div>
+    <!---------------------------footer------------------------>
+    <footer class="footer_in">
+        <div class="container">
+            <div class="footer-pages">
+                <div class="column">
+
+                   
+                    <ul>
+                        <li class="heading">Getting Started</li>
+                        <li><a href="#">Get Funded</a></li>
+                        <li><a href="about.html">Hot It Works</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="#">Log In</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="browse-company.html">Browse Companies</a></li>
+                        <li><a href="#">Companies</a></li>
+                        <li><a href="">People</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Legal</li>
+                        <li><a href="termsofuse.html">Terms of Use</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="testimonial.html">Testimonial</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="news-event.html">News &amp; Events</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+                    <ul>
+                        <li class="heading">Londcap</li>
+                        <li><a href="newsletter.html">Newsletter</a></li>
+                        <li><a href="faq.html">Investor FAQ</a></li>
+                        <li><a href="knowledgecenter.html">Knowledge Center</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+                    <ul>
+                        <li class="heading">Londcap</li>
+                        <li><a href="#">Newsletter</a></li>
+                        <li><a href="#">Investor FAQ</a></li>
+                        <li><a href="#">Knowledge Center</a></li>
+                    </ul>
+                </div><!-- end .column -->
+            </div>
+            <div class="notices clearfix">
+                <img src="images/Logo%20LondCap.png"/ style="margin: 0 auto; display: block">
+                <p class="copyright">Copyright © 2019 LondCap.com. All rights reserved.</p>
+            </div>
+            <div class="footer-message">
+                <p><strong>DISCLOSURE</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy <a href="#" target="_blank">Terms of Use</a> and <a href="#" target="_blank">Privacy Policy</a>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."<a href="#" target="_blank" rel="nofollow">accredited investors</a>" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took <a href="#" target="_blank" rel="nofollow">SEC</a> or <a href="#" target="_blank" rel="nofollow">FINRA</a>.</p>
+            </div>
+        </div>
+    </footer>
+           <!-- login Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Email</small>
+
+                        <input type="email" class="form-control" placeholder="">
+                    </div>
+          <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Password</small>
+
+                        <input type="password" class="form-control" placeholder="">
+                    </div>
+          <div class="forget">
+                <a href="forget-password.html">Forgot your password?</a>
+            </div>
+          <div class="form-group">
+                        <button type="submit" class="login-btn">Login</button>
+                    </div>
+          <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center">Log in with</p>
+          <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><button type="submit" class="linkedin-btn">Sign Up with LinkedIn</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <button type="submit" class="facebook-btn">Sign Up with Facebook</button></div>
+                    </div>
+            <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center"> New to LondCap? <a href="signup.html">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+    <!----------------------------------------------------->
+  <script>
+       
+    $(".btn-compose").click(function () {
+        $(".new-message").css("display","block")
+    });
+
+    $(".message-close").click(function () {
+        $(".new-message").css("display","none")
+    });
+        
+    </script>
+    <!----------------------------------------------------->
+      <script>
+       $("#outbox-div").click(function() {
+           $("#outbox").css("display","block")
+       });
+         $("#outbox-div").click(function() {
+           $("#inbox").css("display","none")
+       }); 
+            $("#inbox-div").click(function() {
+           $("#inbox").css("display","block")
+       });
+         $("#inbox-div").click(function() {
+           $("#outbox").css("display","none")
+       });
+    </script>
+    <!-----------------------header-sticky-scripts---------------------------->
+    <script>
+        window.onscroll = function() {
+            myFunction()
+        };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>

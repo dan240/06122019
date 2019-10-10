@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Londcap</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <style>
+
+    </style>
+</head>
+
+<body>
+<div class="header" id="myHeader">
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="browse-company.html"><img src="images/Logo%20LondCap.png" /></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-5 col-lg-5 col-sm-5 col-xs-12 col-xl-5">
+                        <ul class="navbar-nav left_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-investor.html"> Browse Investors</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="browse-company.html">Browse Company</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="col-md-7 col-lg-7 col-sm-7 col-xs-12 col-xl-7">
+
+                        <ul class="navbar-nav right_menu">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Events</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Suggested Companies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Contact Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="message.html"><img src="images/message.png"/ class="message-box"></a>
+                            </li>
+        <li class="nav-item">
+                                <div class="dropdown">
+                                    <button class="dropbtn"><i class="fas fa-user"></i></button>
+                                    <div class="dropdown-content">
+                                        <a href="company-profile.html">Company Profile</a>
+                                        <a href="investors-profile.html">Investor Profile</a>
+                                        <a href="#">Funding Goal</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" data-toggle="modal" data-target="#exampleModalLong">Login</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <div class=" signup_btn"><a class="nav-link" href="signup.html">Sign Up</a></div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </nav>
+    </div>
+    <!------------------------------------------------------>
+   <section class="content-box">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+                    <div class="fb-profile-block">
+                        <div class="fb-profile-block-thumb " style="background-image: url(images/profile_banner.jpg);
+  "></div>
+                        <div class="profile-img">
+                            <a href="#">
+                                <img src="images/user.png" alt="" title="">
+                                </a>
+                        </div>
+                        <div class="profile-name">
+                            <h2>Markins Smithertain</h2>
+                            <h3>Finance Manager</h3>
+                            <h4 class="web-address"><i class="fa fa-map-marker-alt"></i> United States, New York</h4>
+                            <p class="self"><i class="fas fa-check"></i> Self-Accredited
+</p>
+                        </div>
+                        <div class="actions">
+  <div class="action action-connect">
+   
+    <a class="connect following Following" rel="220469" id="follow-user" connected="1">I AM INTERESTED</a>
+      <!--<ul class="options" style="opacity: 0; display: none;"><li class="remove option connected" style="opacity: 1;">Unfollow</li></ul>-->
+  </div>
+  </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+        <!------------------------------------------------------------------>
+    
+      <section class="user-profile">
+        <div class="container">
+            <div class="row">
+                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+   <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="true">Profile</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="following-tab" data-toggle="tab" href="#following" role="tab" aria-controls="following" aria-selected="false">Following</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contafollowersct-tab" data-toggle="tab" href="#followers" role="tab" aria-controls="followers" aria-selected="false">Followers</a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+      <div class="row">
+          <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 col-xl-8">
+                   <h3>COMPANY AFFILIATIONS</h3>
+      <div class="user-messaging-empty">
+                            <p>You have no messages</p>
+                        </div>
+      
+    <h3>WORK EXPERIENCE</h3>
+      <div class="user-messaging-empty">
+                            <p>You have no messages</p>
+                        </div>
+          </div>
+          <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 col-xl-4">
+             
+              <div class="companies-people" id="scoreboard">
+  <div class="user-profile-companies">
+    <h4>Companies</h4>
+    <div class="count">
+      <h5>Teams</h5>
+      <a href="#" class="scoreboard-link">0</a>
+    </div>
+    <div class="count">
+      <h5>Following</h5>
+      <a href="#" class="companies_count scoreboard-link">9</a>
+    </div>
+  </div>
+  <div class="user-profile-people">
+    <h4>People</h4>
+    <div class="count">
+      <h5>Followers</h5>
+      <a href="#" class="scoreboard-link"><span class="connection_count">42</span> </a>
+    </div>
+    <div class="count">
+      <h5>Following</h5>
+      <a href="#" class="scoreboard-link following-count">38</a>
+    </div>
+  </div>
+</div>
+          </div>
+      </div>
+ 
+      
+    </div>
+  <div class="tab-pane fade" id="following" role="tabpanel" aria-labelledby="following-tab">...</div>
+  <div class="tab-pane fade" id="followers" role="tabpanel" aria-labelledby="followers-tab">...</div>
+</div>
+    
+            </div>
+        </div>
+             </div>
+    </section>
+    
+    <!---------------------------footer------------------------>
+    <footer class="footer_in">
+        <div class="container">
+            <div class="footer-pages">
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Getting Started</li>
+                        <li><a href="#">Get Funded</a></li>
+                        <li><a href="about.html">Hot It Works</a></li>
+                        <li><a href="signup.html">Sign Up</a></li>
+                        <li><a href="#">Log In</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="browse-company.html">Browse Companies</a></li>
+                        <li><a href="#">Companies</a></li>
+                        <li><a href="">People</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Legal</li>
+                        <li><a href="termsofuse.html">Terms of Use</a></li>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="testimonial.html">Testimonial</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+
+                    <ul>
+                        <li class="heading">Browse</li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="news-event.html">News &amp; Events</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="support.html">Support</a></li>
+                    </ul>
+                </div><!-- end .column -->
+                <div class="column">
+                    <ul>
+                        <li class="heading">Londcap</li>
+                        <li><a href="newsletter.html">Newsletter</a></li>
+                        <li><a href="faq.html">Investor FAQ</a></li>
+                        <li><a href="knowledgecenter.html">Knowledge Center</a></li>
+                    </ul>
+                </div><!-- end .column -->
+            </div>
+            <div class="notices clearfix">
+                <img src="images/Logo%20LondCap.png"/ style="margin: 0 auto; display: block">
+                <p class="copyright">Copyright © 2019 LondCap.com. All rights reserved.</p>
+            </div>
+            <div class="footer-message">
+                <p><strong>DISCLOSURE</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy <a href="#" target="_blank">Terms of Use</a> and <a href="#" target="_blank">Privacy Policy</a>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."<a href="#" target="_blank" rel="nofollow">accredited investors</a>" Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                <p>Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took <a href="#" target="_blank" rel="nofollow">SEC</a> or <a href="#" target="_blank" rel="nofollow">FINRA</a>.</p>
+            </div>
+        </div>
+    </footer>
+           <!-- login Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-center" id="exampleModalLongTitle">Login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Email</small>
+
+                        <input type="email" class="form-control" placeholder="">
+                    </div>
+          <div class="form-group inner-label-holder"> <small class="label" for="input">Enter Password</small>
+
+                        <input type="password" class="form-control" placeholder="">
+                    </div>
+          <div class="forget">
+                <a href="forget-password.html">Forgot your password?</a>
+            </div>
+          <div class="form-group">
+                        <button type="submit" class="login-btn">Login</button>
+                    </div>
+          <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center">Log in with</p>
+          <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><button type="submit" class="linkedin-btn">Sign Up with LinkedIn</button>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <button type="submit" class="facebook-btn">Sign Up with Facebook</button></div>
+                    </div>
+            <hr style="border-top: 2px dotted #eee;">
+          <p class="text-center"> New to LondCap? <a href="signup.html">Sign up</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+    <!----------------------------------------------------->
+    <!-----------------------header-sticky-scripts---------------------------->
+    <script>
+        window.onscroll = function() {
+            myFunction()
+        };
+
+        var header = document.getElementById("myHeader");
+        var sticky = header.offsetTop;
+
+        function myFunction() {
+            if (window.pageYOffset > sticky) {
+                header.classList.add("sticky");
+            } else {
+                header.classList.remove("sticky");
+            }
+        }
+    </script>
+</body>
+
+</html>

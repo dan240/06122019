@@ -1,0 +1,33 @@
+.company-info label {
+    display: block;
+}
+.company-info input[type="text"], .company-info input[type="email"], .company-info select  {
+    padding: 8px;
+    background: #ffffff38;
+    border: 1px solid #ccc;
+        width: 85%;
+        border-radius: 0px; 
+        font-size: 12px;
+}
+.admin-style input.form-control {
+    width: 85%;
+        padding: 8px;
+    background: #ffffff38;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+.admin-style textarea.form-control{
+	 background: #ffffff38;
+    border: 1px solid #ccc;
+    border-radius: 0px;
+}
+section.content-box.admin-style {
+    padding: 20px 10px;
+}
+section.inner-pages {
+    padding: 30px 0px;
+}
+form.addUser {
+    width: 50%;
+    margin: 0 auto;
+}
