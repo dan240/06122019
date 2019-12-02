@@ -44,15 +44,15 @@ return [
         ],
     ],
     'facebook' => [
-    'client_id' => '2375345359351394',
-    'client_secret' => 'ef673794ecec43220ec5fac552c597d7',
-    'redirect' => 'http://45.35.48.186:8081/crowdfund/public/login/facebook/callback',
+        'client_id' => '2118363351806627',
+        'client_secret' => '0d31ca470832cabfee671f9e1eda9e07',
+        'redirect' => 'https://londcap-app.com/login/facebook/callback',
     ],
 
     'linkedin' => [
-    'client_id' => '8146fix78s2yqo',
-    'client_secret' => 'F3fXPhsk6CCVVeBE',
-    'redirect' => 'http://localhost:8082/crowdfund/public/login/linkedin/callback',
+        'client_id' => '779lrapntpn23h',
+        'client_secret' => 'cNLl7Ap78MQr2HTA',
+        'redirect' => 'https://londcap-app.com/login/linkedin/callback',
     ],
 
 ];

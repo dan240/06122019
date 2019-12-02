@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid bg-white">
 	<div class="row" style="padding:10px;">
         <div class="col-md-6">
           <span style="font-size: 20px;">Investor Campaigns List</span>
@@ -9,10 +9,12 @@
         <div class="col-md-6 text-right">
           <a class="btn btn-primary" href="{{ url('Admin/AddInvestorCampaignForm')}}">Add Investor Campaign</a>
         </div>
-     	</div>
-     <div class="err-msg"></div>
-     <table id="example" class="display" style="width:100%">
-        <thead>
+	</div>
+	
+	<div class="err-msg"></div>
+	
+    <table class="table table-striped" style="width:100%">
+		<thead class="thead-light">
             <tr>
 				<th>#</th>
 				<th>Campaign Name</th>
@@ -23,7 +25,7 @@
         </thead>
         <tbody>
 			<?php $i=1; ?>
-			<?php foreach($data as $row) { ?>
+			<?php foreach($compaignsData['data'] as $row) { ?>
 			<tr>
 				<td>{{ $i }}</td>
 				<td>{{ @$row['firmName'] }}</td>
@@ -53,7 +55,7 @@
 			</tr>
 			<?php $i++;} ?>
 		</tbody>
-		<tfoot>
+		<tfoot class="thead-light">
             <tr>
                 <th>#</th>
 				<th>Campaign Name</th>
@@ -63,11 +65,43 @@
             </tr>
         </tfoot>
 	</table>
+
+	<div class="mt-4">
+		<div class="row">
+			<div class="col">
+				Showing {{ $compaignsData['from'] }} to {{ $compaignsData['to'] }} of {{ $compaignsData['total'] }} entries
+			</div>
+			<div class="col">
+				<nav>
+					<ul class="pagination justify-content-end">
+						@if ($compaignsData['current_page'] != 1)
+							<li class="page-item">
+								<a class="page-link" href="{{ $compaignsData['first_page_url'] }}">&laquo; First</a>
+							</li>
+						@endif
+						@if ($compaignsData['prev_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $compaignsData['prev_page_url'] }}">&lsaquo; Previous</a>
+							</li>
+						@endif
+						
+						@if ($compaignsData['next_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $compaignsData['next_page_url'] }}">&rsaquo; Next</a>
+							</li>
+						@endif
+						@if ($compaignsData['current_page'] != $compaignsData['last_page'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $compaignsData['last_page_url'] }}">&raquo; Last</a>
+							</li>
+						@endif
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
 </div>
 <script>
-	$(document).ready(function() {
-    $('#example').DataTable();
-} );
 	function DeleteInvestorCampaign(id)
 	{
 		$.ajax({

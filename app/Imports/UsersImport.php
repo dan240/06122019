@@ -4,7 +4,7 @@ namespace App\Imports;
 
 use App\User;
 use App\countryList;
-use App\cityList;
+use App\CityList;
 use App\UserCompany;
 use App\UserInvestor;
 use App\TypeCompanies;
@@ -15,9 +15,10 @@ use App\Industry;
 use App\RegionName;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithStartRow;
+use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Session;
 
-class UsersImport implements ToModel,WithStartRow
+class UsersImport implements ToModel, WithStartRow, WithChunkReading
 {
     /**
     * @param array $row
@@ -28,18 +29,29 @@ class UsersImport implements ToModel,WithStartRow
     {
         return 2;
     }
+
     public $count = 0;
 
-    public function model(array $row)
+    public function chunkSize(): int
     {
+        return 200;
+    }
+
+    public function model(array $row) {
         ++$this->count;
 
-        if(isset($row[0]) && isset($row[1]) && isset($row[2]) && isset($row[3]) && isset($row[4]) 
-            && isset($row[5]) && isset($row[6]) && isset($row[7]) && isset($row[8]) && isset($row[9]) 
-            && isset($row[10]) && isset($row[11]) && isset($row[12]) && isset($row[13]) && isset($row[14])){
+        // if (isset($row[0]) && isset($row[1]) && isset($row[2]) && isset($row[3]) && isset($row[4]) 
+        //     && isset($row[5]) && isset($row[6]) && isset($row[7]) && isset($row[8]) && isset($row[9]) 
+        //     && isset($row[10]) && isset($row[11]) && isset($row[12]) && isset($row[13])) {
+        if (true) {
+            
+            if (trim($row[3]) == 'Investor') {
+                $userType = '2';
+            } else if (trim($row[3]) == 'Company') {
+                $userType = '1';
+            }
 
-
-            if ($row[3] == 'Investor') { $userType = '2'; }else{ $userType = '1'; }
+           
             if ($row[5] == 'Inactive') { $status = '2'; }else{ $status = '1'; }
 
             if ($row[6] == 'No') { $is_Professional = '0'; }else{ $is_Professional = '1';  }
@@ -47,6 +59,14 @@ class UsersImport implements ToModel,WithStartRow
 
             if ($row[8] == 'No') { $see_contacts = '1'; }else{ $see_contacts = '2'; }
             if ($row[9] == 'Unlimited') { $subscription_plan = '2'; }else{ $subscription_plan = '1'; }
+            
+            $message_meeting_approval = "no";
+
+            if (isset($row[44])) {
+                if ($row[44] == 'yes') {
+                    $message_meeting_approval = "yes";
+                }
+            }
 
             $firstname          = $row[0];
             $lastname           = $row[1];
@@ -56,15 +76,11 @@ class UsersImport implements ToModel,WithStartRow
             $country            = $row[12];
             $city               = $row[13];
                 
-            // $userCheck = User::where('email',$email)->first();
-            // if(!empty($userCheck)){
-            //     \Session::flash('excel_resp', 
-            //     array(  'error' => 'error','msg' => 
-            //             'Email "'.$email.'" is already registered with us.',
-            //             'address' => 'Row ->'.$this->count,
-            //     ));
-            //     header('Location: ' . $_SERVER['HTTP_REFERER']);
-            // }
+            $userCheck = User::where('email', trim($email))->first();
+
+            if(!empty($userCheck)){
+                return null;
+            }
 
             $user = new User;
             $user->firstname = $firstname;
@@ -77,12 +93,16 @@ class UsersImport implements ToModel,WithStartRow
             $user->email_verification = $email_verification;
             $user->see_contacts = $see_contacts;
             $user->subscription_plan = $subscription_plan;
+            $user->message_meeting_approval = $message_meeting_approval;
             $user->country = $country;
             $user->city = $city;
             $user->save();
             $user_id = $user->id;
+
             if(isset($row[10])){ $phone = $row[10]; }else{ $phone = null; }
+
             if(isset($row[11])){ $jobTitle = $row[11]; }else{ $jobTitle = null; }
+
             if(isset($row[12])){ 
                 $country_name = $row[12];
                 $country = countryList::where('country_name',$country_name)->first();
@@ -108,9 +128,9 @@ class UsersImport implements ToModel,WithStartRow
             if(isset($row[16])){ $twitterUrl = $row[16]; }else{ $twitterUrl = null; }
             if(isset($row[17])){ $slideshareUrl = $row[17]; }else{ $slideshareUrl = null; }
             if(isset($row[18])){ $investorFirmVideo = $row[18]; }else{ $investorFirmVideo = null; }
+
             $cistatus = $status;
             
-
             if(isset($row[19]) && $row[19] == 'Yes'){ 
                 $published = '1';
             }else{ 
@@ -126,7 +146,6 @@ class UsersImport implements ToModel,WithStartRow
             if(isset($row[21])){ $fundraisingUrl = $row[21]; }else{ $fundraisingUrl = null; }
 
             if(isset($row[26])){ $companyName = $row[26]; }else{ $companyName = null; }
-
 
             if(isset($row[22])){ $companyUrl = $row[22]; }else{ $companyUrl = null; }
 
@@ -166,35 +185,32 @@ class UsersImport implements ToModel,WithStartRow
             }else{ 
                 $investmentFundingType = null; 
             }
-
-            if(isset($row[40])){
-                
-                $sType = SectorType::where('sectorName',$row[40])->first();
-                if(!empty($sType)){
-                    $sectorFocus = $sType->toArray()['id'];
-                }else{
-                    $sectorFocus = null;
-                }
-            }else{
-                $sectorFocus = null; 
-            }
-
-            if(isset($row[41])){ 
-                
-                $iType = Industry::where('industryName',$row[41])->first();
-                if(!empty($iType)){
-                    $industryFocus = $iType->toArray()['id'];
-                }else{
-                    $industryFocus = null;
-                }
-            }else{
-                $industryFocus = null; 
-            }
-
-            
-
             
             if($userType == '1'){
+                if (isset($row[40])) {
+                    $sType = SectorType::where('sectorName',$row[40])->first();
+    
+                    if (!empty($sType)) {
+                        $sector = $sType->toArray()['id'];
+                    } else {
+                        $sector = null;
+                    }
+                } else {
+                    $sector = null; 
+                }
+    
+                if (isset($row[41])) { 
+                    $iType = Industry::where('industryName',$row[41])->first();
+
+                    if (!empty($iType)) {
+                        $industry = $iType->toArray()['id'];
+                    } else {
+                        $industry = null;
+                    }
+                } else {
+                    $industry = null; 
+                }
+                
                 // add company data
                 if(isset($row[27])){ $companyAmountRaised = number_format($row[27]); }else{ $companyAmountRaised = null; }
 
@@ -211,6 +227,7 @@ class UsersImport implements ToModel,WithStartRow
                 if(isset($row[33])){ $closingDate = $row[33]; }else{ $closingDate = null; }
 
                 $companyData = new UserCompany;
+
                 $companyData->userid = $user_id;
                 $companyData->fname = $firstname;
                 $companyData->lname = $lastname;
@@ -232,8 +249,8 @@ class UsersImport implements ToModel,WithStartRow
                 $companyData->companyName = $companyName;
                 $companyData->companyType = $compInvType;
                 $companyData->fundingType = $investmentFundingType;
-                $companyData->industry = $industryFocus;
-                $companyData->sector = $sectorFocus;
+                $companyData->industry = $industry;
+                $companyData->sector = $sector;
                 $companyData->ammountRaised = $companyAmountRaised;
                 $companyData->fundingGoal = $companyFundingGoal;
                 $companyData->minReservation = $companyMinReservation;
@@ -245,30 +262,57 @@ class UsersImport implements ToModel,WithStartRow
                 $companyData->status = $status;
                 $companyData->isPublished = $published;
                 $companyData->is_featured = $featured;
+
                 $companyData->save();
-            }else if($userType == '2'){
+
+            } else if ($userType == '2') {
+                if (isset($row[40])) {
+                    
+                    $sType = SectorType::whereIn('sectorName', explode("|", $row[40]))->get()->pluck('id');
+    
+                    if (!empty($sType)) {
+                        $sectorFocus = implode(",", $sType->all());
+                    } else {
+                        $sectorFocus = null;
+                    }
+                } else {
+                    $sectorFocus = null; 
+                }
+    
+                if (isset($row[41])) { 
+                    $iType = Industry::whereIn('industryName', explode("|", $row[41]))->get()->pluck('id');
+
+                    if (!empty($iType)) {
+                        $industryFocus = implode(",", $iType->all());
+                    } else {
+                        $industryFocus = null;
+                    }
+                } else {
+                    $industryFocus = null; 
+                }
+                
                 if(isset($row[34])){ $investorAssetUndermgmt = $row[34]; }else{ $investorAssetUndermgmt = null; }
                 if(isset($row[35])){ $investorRangeFrom = $row[35]; }else{ $investorRangeFrom = null; }
                 if(isset($row[36])){ $investorRangeTo = $row[36]; }else{ $investorRangeTo = null; }
                 if(isset($row[37])){ $investorBioData = $row[37]; }else{ $investorBioData = null; }
 
-                if(isset($row[42])){ 
-                
-                    $rType = RegionName::where('regionName',$row[42])->first();
-                    if($rType){
-                        $regionFocus = $rType->toArray()['id'];
-                    }else{
+                if (isset($row[42])) { 
+                    $rType = RegionName::whereIn('regionName', explode("|", $row[42]))->get()->pluck('id');
+
+                    if(!empty($rType)) {
+                        $regionFocus = implode(",", $rType->all());
+                    } else {
                         $regionFocus = null;
                     }
-                }else{ 
+                } else { 
                     $regionFocus = null; 
                 }
     
-                if(isset($row[43])){ 
-                    
-                    $cont = countryList::where('country_name',$row[43])->first();
-                    if(!empty($cont)){
-                        $countryFocus = $cont->toArray()['id'];
+                if (isset($row[43])) { 
+                    $cont = countryList::whereIn('country_name', explode("|", $row[43]))->get()->pluck('id');
+
+                    if (!empty($cont)) {
+                        $countryFocus = implode(",", $cont->all());
                     }else{
                         $countryFocus = null;
                     }
@@ -276,42 +320,42 @@ class UsersImport implements ToModel,WithStartRow
                     $countryFocus = null; 
                 }
 
-                    $investorData = new UserInvestor;
-                    $investorData->userid = $user_id;
-                    $investorData->firstname = $firstname;
-                    $investorData->lastname = $lastname;
-                    $investorData->email = $email;
-                    $investorData->phoneno = $phone;
-                    $investorData->firmName = $companyName;
-                    $investorData->firmTagline = $companyTagLine;
-                    $investorData->profileText = $companyProfileText;
-                    $investorData->jobTitle = $jobTitle;
-                    $investorData->country = $country_id;
-                    $investorData->city = $city_id;
-                    $investorData->investorfirmUrl = $companyUrl;
-                    $investorData->linkedinUrl = $linkedinUrl;
-                    $investorData->fbUrl = $facebookUrl;
-                    $investorData->twitterUrl = $twitterUrl;
-                    $investorData->slideshareUrl = $slideshareUrl;
-                    $investorData->investorFirmvideo = $investorFirmVideo;
-                    $investorData->investorType = $compInvType;
-                    $investorData->investmentType = $investmentFundingType;
-                    $investorData->sectorFocus = $sectorFocus;
-                    $investorData->industryFocus = $industryFocus;
-                    $investorData->is_Public = $cistatus;
-                    $investorData->regionFocus = $regionFocus;
-                    $investorData->countryFocus = $countryFocus;
-                    $investorData->assetUndermgmt = $investorAssetUndermgmt;
-                    $investorData->investmentRangefrm = $investorRangeFrom;
-                    $investorData->investmentRangeto = $investorRangeTo;
-                    $investorData->status = $status;
-                    
-                    $investorData->fundraisUrl = $fundraisingUrl;
-                    $investorData->bioData = $investorBioData;
-                    $investorData->isPublished = $published;
-                    $investorData->is_featured = $featured;
+                $investorData = new UserInvestor;
+                $investorData->userid = $user_id;
+                $investorData->firstname = $firstname;
+                $investorData->lastname = $lastname;
+                $investorData->email = $email;
+                $investorData->phoneno = $phone;
+                $investorData->firmName = $companyName;
+                $investorData->firmTagline = $companyTagLine;
+                $investorData->profileText = $companyProfileText;
+                $investorData->jobTitle = $jobTitle;
+                $investorData->country = $country_id;
+                $investorData->city = $city_id;
+                $investorData->investorfirmUrl = $companyUrl;
+                $investorData->linkedinUrl = $linkedinUrl;
+                $investorData->fbUrl = $facebookUrl;
+                $investorData->twitterUrl = $twitterUrl;
+                $investorData->slideshareUrl = $slideshareUrl;
+                $investorData->investorFirmvideo = $investorFirmVideo;
+                $investorData->investorType = $compInvType;
+                $investorData->investmentType = $investmentFundingType;
+                $investorData->sectorFocus = $sectorFocus;
+                $investorData->industryFocus = $industryFocus;
+                $investorData->is_Public = $cistatus;
+                $investorData->regionFocus = $regionFocus;
+                $investorData->countryFocus = $countryFocus;
+                $investorData->assetUndermgmt = $investorAssetUndermgmt;
+                $investorData->investmentRangefrm = $investorRangeFrom;
+                $investorData->investmentRangeto = $investorRangeTo;
+                $investorData->status = $status;
+                
+                $investorData->fundraisUrl = $fundraisingUrl;
+                $investorData->bioData = $investorBioData;
+                $investorData->isPublished = $published;
+                $investorData->is_featured = $featured;
 
-                    $investorData->save();
+                $investorData->save();
             }   
         }  
     }

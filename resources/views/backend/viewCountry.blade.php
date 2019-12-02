@@ -15,9 +15,9 @@
 		<thead>
             <tr>
 				<th>#</th>
-				<th>Country Name</th>
+				<th>Name</th>
+				<th>Region</th>
 				<th>Status</th>
-				<th>Created_At</th>
 				<th>Action</th>
             </tr>
         </thead>
@@ -27,10 +27,10 @@
 			<tr>
 				<td>{{ $i }}</td>
 				<td>{{ @$row['country_name'] }}</td>
+				<td>{{ @$row['region']['regionName'] }}</td>
 				<?php if(@$row['status']=='1') { ?>
 				<td>Active</td>
 				<?php } ?>
-				<td>{{ @$row['created_at'] }}</td>
 				<td>
 					<?php $id=base64_encode($row['id']);?>
 					<a class="btn btn-danger btn-xs" data-original-title="Remove" data-toggle="tooltip" data-placement="top" href="javascript:void(0)" onclick="DeleteCountry('{{$id}}')"> 
@@ -46,9 +46,9 @@
 		<tfoot>
             <tr>
 				<th>#</th>
-				<th>Country Name</th>
+				<th>Name</th>
+				<th>Region</th>
 				<th>Status</th>
-				<th>Created_At</th>
 				<th>Action</th>
             </tr>
         </tfoot>

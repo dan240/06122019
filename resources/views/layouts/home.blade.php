@@ -7,21 +7,12 @@
 </head>
 
 <body>
-    
-        
-        @include('frontend.include.user-header')
-
-
-    <!-------------------------nav-end------------------------------>
+    @include('frontend.include.user-header')
 
     @yield('content')
    
+    @include('frontend.include.user-foot')
 
-    <!-- Container (Footer) -->
-     @include('frontend.include.user-foot')
-
-    
-    
     <script>
         function openForm() {
             document.getElementById("myForm").style.display = "block";
@@ -31,27 +22,6 @@
             document.getElementById("myForm").style.display = "none";
         }
     </script>
-    <!-----------------------header-sticky-scripts---------------------------->
-<!--     <script>
-       
-        window.onscroll = function() {
-            myFunction()
-        };
-
-        var header = document.getElementById("myHeader");
-        var sticky = header.offsetTop;
-
-        function myFunction() {
-            if (window.pageYOffset > sticky) {
-                header.classList.add("sticky");
-            } else {
-                header.classList.remove("sticky");
-            }
-        }
-    </script> -->
-
-    
-
 </body>
 
 </html>

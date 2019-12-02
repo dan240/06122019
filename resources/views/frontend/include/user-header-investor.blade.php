@@ -58,9 +58,12 @@
                         <li class="nav-item"><a class="nav-link" id="about" href="javascript:;">About Us</a></li>
                         <?php if(!empty(Session::has('User.id'))) { ?>
                         <li class="nav-item"><a class="nav-link" href="javascript:;" id="event">Events</a></li>
-                        <li class="nav-item"><a class="nav-link notification" id="message" href="#"><i class="fa fa-envelope"></i><?php 
-    $c = app('App\Http\Controllers\UserController')->getNotification(); 
-    if($c>0){echo '<span class="badge">'.$c.'</span>' ;}?></a></li>
+                        <li class="nav-item"><a class="nav-link notification" id="message" href="#"><i class="fa fa-envelope"></i>
+                            <?php 
+                                //$c = app('App\Http\Controllers\UserController')->getNotification(); 
+                                //if($c>0){echo '<span class="badge">'.$c.'</span>' ;}
+                            ?></a>
+                        </li>
                         <li class="nav-item">
                                 <div class="dropdown">
                                     <button class="dropbtn"><i class="fas fa-user"></i></button>
@@ -131,13 +134,17 @@
             </div>
             <hr style="border-top: 2px dotted #eee;">
               <p class="text-center">Log in with</p>
-              <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
+              <div class="row mb-2">
+                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" href="{{ url('login/linkedin') }}" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
                         
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <a type="button" href="{{ url('login/facebook') }}" class="facebook-btn"><i class="fab fa-facebook-square"></i>Log in with Facebook</a>
 
                     </div>
+                </div>
+                <hr style="border-top: 2px dotted #eee;">
+                <div class="mb-2 mt-2">
+                    By logging in, I agree to the <a target="_blank" href="{{ url('User/terms-of-use') }}">Terms of Use.</a>
                 </div>
                 <hr style="border-top: 2px dotted #eee;">
               <p class="text-center"> New to LondCap? <a href="{{url('User/signupForm')}}" id="userSignup">Sign up</a></p>
@@ -193,9 +200,25 @@
             window.location.href="{{ url('User/editInvestorProfile/') }}/"+id;
         }  
 
-        
+        function updateMessageNotifications() {
+            $("#message span.badge").remove();
 
-        $(document).ready(function(){
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('getNotification') }}",
+                success: function (result) {
+                    if (result > 0) {
+                        $badge = "<span class='badge'>" + result + "</span>";
+
+                        $("#message").append($badge);
+                    }
+                }
+            });
+        }
+
+        $(document).ready(function() {
+            updateMessageNotifications();
+            
             $("#forgetPassword").click(function(){
                 window.location.href = "{{ url('User/forgetPasswordForm')}}"
             });
@@ -233,7 +256,7 @@
                 window.location.href = "{{ url('User/viewcompanyProfile')}}"
             });
             $("#event").on("click",function(){
-                window.location.href = "{{ url('User/events')}}"
+                window.location.href = "{{ url('User/news-and-events')}}"
             });
 
             $("#login-error").hide();

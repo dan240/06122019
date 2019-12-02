@@ -16,15 +16,17 @@ Route::get('/', function () {
 });
 
 Route::get('/clear-cache', function() {
-    Artisan::call('cache:clear');
+	Artisan::call('cache:clear');
+	Artisan::call('view:clear');
+	Cache::flush();
     return "Cache is cleared";
 });
 
 Route::get('/MessageNew', 'UserController@MessageNew');
 Route::get('/GetMessageHistory/{string}', 'UserController@GetMessageHistory');
-
+Route::get('/getNotification', 'UserController@getNotification');
 Route::get('/getSectorIndustry', 'UserController@getSectorIndustry');
-
+Route::get('/getRegionCountries', 'UserController@getRegionCountries');
 
 
 Route::group(['prefix' => '/Admin'], function(){
@@ -32,6 +34,7 @@ Route::group(['prefix' => '/Admin'], function(){
 	Route::get('/index','AdminController@index');
 	Route::match(['GET','POST'],'/adminLogin','AdminController@adminLogin');
 	Route::match(['GET','POST'],'/User','AdminController@User');
+	Route::match(['GET'], '/findUser','AdminController@findUser');
 	Route::get('/logout', 'AdminController@logout');
 	Route::match(['GET','POST'],'/InactiveUser','AdminController@InactiveUser');
 	Route::match(['GET','POST'],'/ApprovedProfile','AdminController@ApprovedProfile');

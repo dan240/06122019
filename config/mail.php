@@ -56,8 +56,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'info@expertsrefrigeration.website'),
-        'name' => env('MAIL_FROM_NAME', 'Crowdfunding'),
+        'address' => env('MAIL_FROM_ADDRESS', 'noreply@londcap.com'),
+        'name' => env('MAIL_FROM_NAME', 'Lond Capital'),
     ],
 
     /*

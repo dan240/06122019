@@ -42,7 +42,7 @@
 
 		           <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 		          		<label for="status">Subscription Date</label>
-						<input type="text" value="{{@$data['activation']}}" name="activation" >
+						<input type="text" value="{{@$data['activation']}}" name="activation" data-provide="datepicker">
 		          	</div>
 		          	<!--  <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 		          		<label for="status">Message Restriction</label>
@@ -67,9 +67,11 @@
 	<script>
 	$(document).ready(function(){
 		var date_input=$('input[name="activation"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'yyyy-mm-dd',
+		
+		var container=$('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+		
+		date_input.datepicker({
+            format: 'dd-mm-yyyy',
             container: container,
             todayHighlight: true,
             autoclose: true,

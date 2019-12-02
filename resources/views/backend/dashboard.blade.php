@@ -21,7 +21,7 @@
               </div>
               <div class="text-value">{{ $c_user}}</div>
               <div>
-                Registered User As Comapny
+                Registered As Comapny
                 
               </div>
             </div>
@@ -45,7 +45,7 @@
               <i class="icon-location-pin"></i>
             </button> -->
             <div class="text-value">{{ $i_user}}</div>
-            <div>Registered User As Investor</div>
+            <div>Registered As Investor</div>
           </div>
           <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
             <!-- <canvas class="chart" id="card-chart2" height="70"></canvas> -->
@@ -70,7 +70,7 @@
               </div>
             </div>
             <div class="text-value">{{ $prof }}</div>
-            <div>Professional User</div>
+            <div>Professional Users</div>
           </div>
           <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
             <!-- <canvas class="chart" id="card-chart3" height="70"></canvas> -->
@@ -95,7 +95,7 @@
               </div>
             </div>
             <div class="text-value">{{ $unprof }}</div>
-            <div>Not Professional User</div>
+            <div>Non Professional Users</div>
           </div>
           <div class="chart-wrapper mt-3 mx-3" style="height:70px;">
             <!-- <canvas class="chart" id="card-chart4" height="70"></canvas> -->

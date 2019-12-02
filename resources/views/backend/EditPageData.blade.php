@@ -9,7 +9,7 @@
         <!-- <div id="success" class="alert alert-success"></div>
         <div id="failed" class="alert alert-danger"></div> -->
         <div class="col-md-6 text-right">
-          <a class="btn btn-primary" href="{{ url('Admin/viewCity')}}">View Static Pages</a>
+          <a class="btn btn-primary" href="{{ url('Admin/StaticPages')}}">View Static Pages</a>
         </div>
         </div>
         {{Form::open(['method'=>'post','class'=>'SaveStaticPage'])}}

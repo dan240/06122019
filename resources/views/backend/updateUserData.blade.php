@@ -411,7 +411,10 @@ fieldset.scheduler-border {
 				</div>
 			</div>
 		</div>
-		<?php }else if($dataResult['usertype']==1){ ?>
+
+		<?php
+			} else if($dataResult['usertype']==1) {
+		?>
 			
 			
 
@@ -600,9 +603,7 @@ fieldset.scheduler-border {
 							        <div class="controls ">
 
 
-							        	<select name="cp_type[]" class="chosen-select form-control" multiple>
-                                            <option value="">--Select Company Type--</option>
-                                            <option value="0">Select All</option>
+							        	<select name="cp_type[]" class="chosen-select form-control">
                                             <?php $comType = explode(",",@$CompanyData['companyType']); ?>
                                             @foreach($ctype as $comtype)
                                                 <option value="{{ $comtype['id'] }}" <?php if(in_array($comtype['id'], $comType)){echo "selected";}?>>{{ $comtype['typeCompanies'] }}</option>
@@ -615,14 +616,11 @@ fieldset.scheduler-border {
 							</div>
 
 
-
 							<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-6">
 							    <div class="form-group">
 							        <label class="control-label input-label" for="country">Funding Type :</label>
 							        <div class="controls ">
-							            <select name="fd_type[]" id="fd_type" class="chosen-select form-control" multiple>
-                                            <option value="">--Select Funding Type--</option>
-                                            <option value="0">Select All</option>
+							            <select name="fd_type[]" id="fd_type" class="chosen-select form-control">
                                             <?php $funType = explode(",",@$CompanyData['fundingType']); ?>
                                            @foreach($tfunding as $ftype)
 		                                        <option value="{{ $ftype['id'] }}" <?php if(in_array($ftype['id'], $funType)){echo "selected";}?>>{{ $ftype['typeFunding'] }}</option>
@@ -637,16 +635,11 @@ fieldset.scheduler-border {
 							    <div class="form-group">
 							        <label class="control-label input-label" for="country">Sector Type :</label>
 							        <div class="controls ">
-							            <select name="sector[]" id="sector" class="chosen-select form-control" multiple>
-                                            <option value="">--Select Sector Type--</option>
-                                            <option value="0">--Select All--</option>
+							            <select name="sector[]" id="sector" class="chosen-select form-control">
                                             <?php $secType = explode(",",@$CompanyData['sector']); ?>
-                                          @foreach($stype as $sector)
-
-                                            
-
-                                            <option value="{{ $sector['id'] }}" <?php if(in_array($sector['id'], $secType)){echo "selected";}?>>{{ $sector['sectorName'] }}</option>
-                                        @endforeach
+                                          	@foreach($stype as $sector)
+                                            	<option value="{{ $sector['id'] }}" <?php if(in_array($sector['id'], $secType)){echo "selected";}?>>{{ $sector['sectorName'] }}</option>
+                                        	@endforeach
                                         </select>
 							        </div>
 							    </div>
@@ -657,22 +650,15 @@ fieldset.scheduler-border {
 							    <div class="form-group">
 							        <label class="control-label input-label" for="country">Industry :</label>
 							        <div class="controls ">
-							            <select name="industry[]" id="industry" class="form-control chosen-select" multiple>
-                                            <option value="">--Select Industry --</option>
-                                            <option value="0">--Select All--</option>
+							            <select name="industry[]" id="industry" class="form-control chosen-select">
                                             <?php $indType = explode(",",@$CompanyData['industry']); ?>
-                                          @foreach($industry as $ind)
-
-                                          <option value="{{ $ind['id'] }}" <?php if(in_array($ind['id'], $indType)){echo "selected";}?>>{{ $ind['industryName'] }}</option>
-
-
-	                                            
+                                          	@foreach($industry as $ind)
+                                          		<option value="{{ $ind['id'] }}" <?php if(in_array($ind['id'], $indType)){echo "selected";}?>>{{ $ind['industryName'] }}</option>
 	                                        @endforeach
                                         </select>
 							        </div>
 							    </div>
 							</div>
-
 					</div>
 					</fieldset>
                 </div>
@@ -824,97 +810,96 @@ fieldset.scheduler-border {
 	{{Form::close()}}
 </div>
 <script>
-	$(document).ready(function(){
-
-		
-		$('.error-msg').hide();
-		$(".se-pre-con").fadeOut("slow");
+	$(document).ready(function () {
+	    $('.error-msg').hide();
+	    $(".se-pre-con").fadeOut("slow");
 		$(".chosen-select").chosen();
-		$('#save').on('click',function(e){
-			e.preventDefault();
-			
-			
+		
+	    $('#save').on('click', function (e) {
+	        e.preventDefault();
+
 			$('.error-msg').hide();
-			$.ajax({
-				method:"POST",
-				url:"{{ url('Admin/SaveUser')}}",
-				data:$('.updateUserData').serialize(),
-				success:function(response)
-				{
-					
-
-					if(response.msg=='success')
-					{
-						$('.error-msg').html('<div class="alert alert-success">Data updated successfully.</div>');
-						$('.error-msg').show();
-					}else{
-						$('.error-msg').html('<div class="alert alert-danger">Data not updated.</div>');
-						$('.error-msg').show();
-					}
-				}
-			})
+			
+	        $.ajax({
+	            method: "POST",
+	            url: "{{ url('Admin/SaveUser')}}",
+	            data: $('.updateUserData').serialize(),
+	            success: function (response) {
+	                if (response.msg == 'success') {
+	                    $('.error-msg').html('<div class="alert alert-success">Data updated successfully.</div>');
+	                    $('.error-msg').show();
+	                } else {
+	                    $('.error-msg').html('<div class="alert alert-danger">Data not updated.</div>');
+	                    $('.error-msg').show();
+	                }
+	            }
+	        })
 		});
-		$("#country").change(function(){
-            var country=$(this).val();
-            $.ajax({
-                method:"POST",
-                url:"{{ url('User/getcityList')}}",
-                data:{"_token":"{{csrf_token()}}",cid:country},
-                success:function(response)
-                {
-                    var appenddata;
-                    var data = JSON.parse(response);
-                    $.each(data, function (key, value) {
-                        appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";                        
-                    });
-                    $('#city').html(appenddata);
-                }
-            })
-        })
-		$('input#assets').keyup(function(e) {
+		
+	    $("#country").change(function () {
+			var country = $(this).val();
+			
+	        $.ajax({
+	            method: "POST",
+	            url: "{{ url('User/getcityList')}}",
+	            data: {
+	                "_token": "{{csrf_token()}}",
+	                cid: country
+	            },
+	            success: function (response) {
+	                var appenddata;
+	                var data = JSON.parse(response);
+	                $.each(data, function (key, value) {
+	                    appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";
+	                });
+	                $('#city').html(appenddata);
+	            }
+	        })
+		});
+		
+	    $('input#assets').keyup(function (e) {
+	        // skip for arrow keys
+	        if (e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
 
-			// skip for arrow keys
-			if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-			// format number
-			$(this).val(function(index, value) {
-				return value
-					.replace(/\D/g, "")
-					.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-	      	});
-        }); 
-        $('input#range_from').keyup(function(e) {
-
-            // skip for arrow keys
-            if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-          // format number
-          	$(this).val(function(index, value) {
-            	return value
-	                .replace(/\D/g, "")
-	                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-	                ;
-          	});
-        });    
-        $('input#range_to').keyup(function(e) {
-
-            // skip for arrow keys
-            if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-            // format number
-            $(this).val(function(index, value) {
-                return value
+	        // format number
+	        $(this).val(function (index, value) {
+	            return value
 	                .replace(/\D/g, "")
 	                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            });
-        });
-        $("#phone").keypress(function (e) {
-            //if the letter is not digit then display error and don't type anything
-            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                //display error message
-               	return false;
-            }
-       	});
+	        });
+		});
+		
+	    $('input#range_from').keyup(function (e) {
+	        // skip for arrow keys
+	        if (e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+
+	        // format number
+	        $(this).val(function (index, value) {
+	            return value
+	                .replace(/\D/g, "")
+	                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	        });
+		});
+		
+	    $('input#range_to').keyup(function (e) {
+	        // skip for arrow keys
+	        if (e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+
+	        // format number
+	        $(this).val(function (index, value) {
+	            return value
+	                .replace(/\D/g, "")
+	                .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+	        });
+		});
+		
+	    $("#phone").keypress(function (e) {
+	        //if the letter is not digit then display error and don't type anything
+	        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+	            //display error message
+	            return false;
+	        }
+	    });
 	})
 	</script>
 @endsection

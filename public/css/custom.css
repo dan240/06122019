@@ -1752,7 +1752,7 @@ h2.title {
 .sidebar-menu ul {
     list-style: none;
     padding-left: 0;
-    height: 415px;
+    height: 500px;
     overflow-y: scroll;
 }
 
@@ -2376,7 +2376,7 @@ a#follow-user {
 }*/
 .card.col-xl-3.col-md-3.col-lg-3.col-sm-6.col-12 {
     width: 100%;
-    min-width: 285px;
+    min-width: 280px;
 }
 
 div#error-note li {
@@ -2659,7 +2659,7 @@ td.envelope.view-message {
 padding-left: 10px;
 }
 tbody#sendBox {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     bottom: 0px;
     border-top: 1px solid #dddddd73;

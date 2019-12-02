@@ -258,7 +258,7 @@
                                 <div class="row region_div">
                                     <div class="col-xl-4 col-md-4 col-lg-4 col-sm-4 col-4">
                                         <div class="region_div_text">
-                                            <p><strong>{{ @$row['region_focus']['regionName'] }}</strong></p>
+                                            <p><strong>{{ @$row['regionFocus']['regionName'] }}</strong></p>
                                             <p>Region Focus</p>
                                         </div>
                                     </div>
@@ -309,17 +309,15 @@
 
 
 <script>
-        function viewInvestorProfile(id){
-
+        function viewInvestorProfile(id) {
             window.location.href="{{ url('User/viewInvestorProfile/') }}/"+id;
         }
-        $(document).ready(function(){
 
-
+        $(document).ready(function() {
             var baseurl = window.location.protocol + "//" + window.location.host + window.location.pathname + '?';
+
             <?php
             if(!empty($getFullQueryString)){ 
-               //print_r(@$queryString); exit;
                 if(!empty(@$queryString['investortype'])){
                     $tt =   array_keys(@$queryString['investortype']);
                     echo "var paramArrayInvestorType = [".@$tt[0]."];";
@@ -492,8 +490,8 @@
                                             html+='<div class="row region_div">';
                                                 html+='<div class="col-md-4 col-lg-4 col-sm-4 col-4 col-xl-4">';
                                                     html+='<div class="region_div_text">';
-                                                    if(value["region_focus"] !=""){
-                                                        html+='<p><strong>'+ value["region_focus"]["regionName"]+ '</strong></p>';
+                                                    if(value["regionFocus"]){
+                                                        html+='<p><strong>'+ value["regionFocus"]["regionName"]+ '</strong></p>';
                                                     }else{
                                                         html+='<p><strong></strong></p>';
                                                     }
@@ -518,7 +516,6 @@
                                     html+='</div>';
                                 html+='</a></div>';
                                       });
-                            /*console.log(html);*/
                             $("#investorProfile").html(html);                                
                         }else{
                             $("#investorProfile").html('<div class="alert-danger">Data NOt Found</div>');
@@ -561,7 +558,7 @@
                                             html+='<div class="row region_div">';
                                                 html+='<div class="col-md-4 col-lg-4 col-sm-4 col-4 col-xl-4">';
                                                     html+='<div class="region_div_text">';
-                                                        html+='<p><strong>'+ value["region_focus"]["regionName"]+ '</strong></p>';
+                                                        html+='<p><strong>'+ value["regionFocus"]["regionName"]+ '</strong></p>';
                                                         html+='<p>Region Focus</p>';
                                                     html+='</div>';
                                                 html+='</div>';
@@ -650,11 +647,12 @@
            url: "{{url('User/getSearchDatainvestor')}}",
            data:{"_token": "{{ csrf_token() }}",data:data},
            success: function(response) {
-                if(response.msg=='Success'){
-
-                     var html = "";
+                if (response.msg=='Success') {
+                    var html = "";
                     var data = "";
+
                     data = response.data;
+
                     $.each(data,function(key,value){
                         var bannerimg = '{{ asset("uploads/images/") }}';
                                  html+='<div class="card col-xl-3 col-md-3 col-lg-3 col-sm-6 col-12">';
@@ -696,18 +694,17 @@
                                         html+='</div>';
                                     html+='</div>';
                                 html+='</a></div>';
-                 });
-                    /*console.log(html);*/
-                    $("#investorProfile").html(html);                                
-                }else{
-                    $("#investorProfile").html('<div class="alert-danger">Data NOt Found</div>');
+                    });
 
+                    $("#investorProfile").html(html);                                
+                } else {
+                    $("#investorProfile").html('<div class="alert-danger">No investors were found based on the selected criteria.</div>');
                 }
             }
         });
     }
     </script>
-     <script>
+    <script>
         $(document).ready(function() {
             $('#list').click(function(event) {
                 event.preventDefault();
@@ -723,7 +720,6 @@
 
     <script>
         $(document).ready(function(){
-            
             // Initialize select2
             $("#selectCountry").select2();
                 $("#selectCountry").change(function(){

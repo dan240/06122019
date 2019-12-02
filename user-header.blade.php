@@ -138,7 +138,7 @@
         <hr style="border-top: 2px dotted #eee;">
         <p class="text-center">Log in with</p>
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" href="{{ url('login/linkedin') }}" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <a type="button" href="{{ url('login/facebook') }}" class="facebook-btn"><i class="fab fa-facebook-square"></i>Log in with Facebook</a>
             </div>

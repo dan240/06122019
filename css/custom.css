@@ -193,6 +193,10 @@ section.content-box {
 
 }
 
+.nav-item .dropdown-content .inner {
+    /* overflow-x: hidden; */
+}
+
 .nav-item .dropdown-content a {
     color: black;
     padding: 12px 16px;
@@ -2659,7 +2663,7 @@ td.envelope.view-message {
 padding-left: 10px;
 }
 tbody#sendBox {
-    position: absolute;
+    /* position: absolute; */
     width: 100%;
     bottom: 0px;
     border-top: 1px solid #dddddd73;
@@ -2667,4 +2671,14 @@ tbody#sendBox {
 .entire-convo-div {
     height: 315px;
     overflow-y: scroll;
+}
+
+/* Tooltip */
+.tooltip-inner {
+    font-size: 12px;
+    background-color: #2277B5;
+}
+
+.bs-tooltip-top .arrow::before {
+    border-top-color: #2277B5;
 }

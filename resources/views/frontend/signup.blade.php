@@ -20,13 +20,15 @@
                             </ul>
                         </div>
                     @endif
-                     <?php if(!empty($response)):?>
-                            <div class="alert alert-<?php echo ($response['code'] == 1)?'success':'danger';?> alert-dismissible">
+                     <?php if (!empty($response)) {
+    ?>
+                            <div class="alert alert-<?php echo (1 == $response['code']) ? 'success' : 'danger'; ?> alert-dismissible">
                               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                              <i class="icon fa fa-<?php echo ($response['code'] == 1)?'check':'ban';?>"></i>
-                              <?php echo $response['msg'];?>
+                              <i class="icon fa fa-<?php echo (1 == $response['code']) ? 'check' : 'ban'; ?>"></i>
+                              <?php echo $response['msg']; ?>
                             </div>
-                          <?php endif; ?>
+                          <?php
+} ?>
                     <form-group>
                         <div class="row">
                             <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-4">
@@ -42,8 +44,12 @@
                             </div>
                         </div>
                     </form-group>
-                    <?php $str = @$data['name'];
-                                $resData = (explode(" ",@$str)); $fname = @$resData[0]; $lname=@$resData[1]; ?>
+                    <?php
+                        $str = @$data['name'];
+                        $resData = (explode(' ', @$str));
+                        $fname = @$resData[0];
+                        $lname = @$resData[1];
+                    ?>
                     <hr style="border-top: 2px dotted #eee;">
                     <div class="form-group inner-label-holder"> <small class="label" for="input">First Name </small>
 
@@ -52,11 +58,11 @@
 
                     <div class="form-group inner-label-holder"> <small class="label" for="input">Last Name </small>
 
-                        <input type="text" class="form-control" name="lname" value={{ $lname}}>
+                        <input type="text" class="form-control" name="lname" value="{{$lname}}">
                     </div>
                     <div class="form-group inner-label-holder"> <small class="label" for="input">Email</small>
 
-                        <input type="email" class="form-control"  name="email" value="{{ @$data['email'] }}"required>
+                        <input type="email" class="form-control"  name="email" value="{{ @$data['email'] }}" required>
                     </div>
                     <div class="form-group inner-label-holder"> <small class="label" for="input">Password </small>
 
@@ -69,7 +75,7 @@
                     <div class="form-group">
                         <button id="submitForm" type="submit" class="btn">Create Account</button>
                     </div>
-                    <p class="text-center">By signing up, you agree to the <a href="#">Terms of Use.</a></p>
+                    <p class="text-center">By signing up, you agree to the <a target="_blank" href="{{ url('User/terms-of-use') }}">Terms of Use.</a></p>
                     <hr style="border-top: 2px dotted #eee;">
 
                     <div class="row">
@@ -126,7 +132,7 @@
                         userType:'Please Select type either Company or Investor',
                         fname: 'Please Enter Your First Name',
                         lname: 'Plase Enter Your Last Name',
-                        email: 'Please Eenter a valid Email-Id',
+                        email: 'Please Enter a valid Email Address',
                         password:'Password should be minimun length 6 and maximum length 10',
                         hiddenRecaptcha:'Captcha Must be Selected',
                     },

@@ -90,46 +90,47 @@
 				<br>
 				<div class="sidebar-menu">
 					<ul id="SortConversation">
-
-						
-						<?php foreach ($UserList as $key => $value) {?>
-						<?php $msg = app('App\Http\Controllers\UserController')->GetLastMessage($value['id']);
-								$lmsg = json_decode($msg, true); ?>
+						<?php
+							foreach ($UserList as $key => $value) {
+								$msg = app('App\Http\Controllers\UserController')->GetLastMessage($value['id']);
+								$lmsg = json_decode($msg, true);
+						?>
 						<li class="outbox_div " data-name="<?php echo time()- strtotime($lmsg['created_at']); ?>">
 							<a href="javascript:;" data-user="{{ $value['id']}}" class="MessageConversation">
 								<?php 
-								$userId = Session::get('User.id');
-								$unread = 0;
-								if($lmsg['reciever_id']==$userId && $lmsg['notify']==1){
-									$unread =1;
-								}
+									$userId = Session::get('User.id');
+									$unread = 0;
+
+									if($lmsg['reciever_id']==$userId && $lmsg['notify']==1){
+										$unread = 1;
+									}
 								?>
 								<table cellspacing="0" cellpadding="0" border="0" class="messages {{ ($unread==1 )? 'recent-mesg' : ''}}">
 									<tbody>
 										<tr>
 											<td class="avatar">
-												<?php if(!empty($value['investor_detail'])){
-													$profileImg = $value['investor_detail']['image_name'];
-												}else if(!empty($value['company_detail'])){
-													$profileImg = $value['company_detail']['image_name'];
-												}
+												<?php
+													if(!empty($value['investor_detail'])){
+														$profileImg = $value['investor_detail']['image_name'];
+													}else if(!empty($value['company_detail'])){
+														$profileImg = $value['company_detail']['image_name'];
+													}
 
-												if($profileImg != '' && file_exists('./uploads/images/'.$profileImg)){
-													$profileImg = url('/').'/uploads/images/'.$profileImg;
-													
-												}else{
-													$profileImg = url('/').'/images/user.png';
-												}
+													if($profileImg != '' && file_exists('./uploads/images/'.$profileImg)){
+														$profileImg = url('/').'/uploads/images/'.$profileImg;
+														
+													}else{
+														$profileImg = url('/').'/images/user.png';
+													}
 												?>
 												<img class="view-message" rel="177391" src="{{ $profileImg }}" alt="User">
 											</td>
 											<td class="envelope view-message" rel="177391">
 												<a href="javascript:;" class="view-message " rel="177391">
-													<span class="sender lmsg-spn"><?php echo $value['firstname']." ".$value['lastname'];
-													?></span>
+													<span class="sender lmsg-spn"><?php echo $value['firstname']." ".$value['lastname']; ?></span>
 												</a>
 												<div class="lmsg-spn">
-													<?php 
+												<?php 
 													if($lmsg['type']==1){ echo 'Meeting'; }else{ echo 'Message'; }
 													echo  $lmsg['subject'];
 													echo " : <br> ";
@@ -230,9 +231,9 @@
 				$('.MessageConversation').first().trigger('click');
 			},100);
 
-			$('.MessageConversation').on('click', function(){
-				//console.log($(this).data('user'));
+			$('.MessageConversation').on('click', function() {
 				var otherId = $(this).data('user');
+
 				$(this).children('.messages').removeClass('recent-mesg');
 				$('.outbox_div').removeClass('active');
 				$(this).parent('.outbox_div').addClass('active');
@@ -241,38 +242,41 @@
 					method:"GET",
 					url: "{{ url('GetMessageHistory/') }}/"+otherId,
 					async:false,
-					success:function(response)
-					{
+					success:function(response) {
 						var response = JSON.parse(response);
 						
 						$('#inbox').hide();
+
 						$('#messageBox').html(response.messages);
-						//console.log(response.messages);
+						
 						$('#sendBox').html(response.sendbox);
+						
 						$('#outbox').show();
+						
 						var objDiv = document.getElementById("entire-convo-div");
+						
 						objDiv.scrollTop = objDiv.scrollHeight;
+
+						updateMessageNotifications();
 					}
 				});
 			});
 			
-			$('body').on('click', '.signup_btn', function(e){
-				
+			$('body').on('click', '.signup_btn', function(e) {
 				e.preventDefault();
-				// console.log($('#message_form').serialize())
+
 				$.ajax({
 					method:"POST",
 					url: "{{ url('/User/postMsg') }}",
 					async:false,
 					data:$('#message_form').serialize(),
-					success:function(response){
-						
-						if(response.code ==1){
+					success:function(response) {
+						if (response.code ==1) {
 							$('body').find('.message_box').val('');
 							$( response.data ).insertAfter( "#messageBox>tr:last" );
 							var objDiv = document.getElementById("entire-convo-div");
 							objDiv.scrollTop = objDiv.scrollHeight;
-						}else if(response.code == 2 && response.msg == 'msglimit'){
+						} else if(response.code == 2 && response.msg == 'msglimit'){
 							swal({
 					            title: "Your free trail message limit has been exceeded. Please renew your account to get unlimited access.",
 					            text: "",
@@ -288,7 +292,7 @@
 							
 						}else if(response.code == 2 && response.msg == 'notApproved'){
 							swal({
-					            title: "You can send messages / meeting requests once account is approved",
+					            title: "You can send messages / meeting requests once yuor account has been approved",
 					            text: "",
 					            type: "warning",
 					            showCancelButton: false,
@@ -305,16 +309,16 @@
 			$('body').on('click', '#send', function(e){
 				$(".se-pre-con").fadeIn("slow");
 					e.preventDefault();
-					//console.log($('.chatNewBox').serialize())
+					
 					$.ajax({
 						method:"POST",
 						url: "{{ url('/User/sendUserMessage') }}",
 						async:false,
 						data:$('.chatNewBox').serialize(),
-						success:function(response)
-						{
-							if(response.code==1){
-								alert('Message send successfully');
+						success:function(response) {
+							if (response.code == 1) {
+								swal('Message sent successfully');
+								$(".new-message").css("display","none");
 							}
 						}
 					});
@@ -327,10 +331,12 @@
 	    
 	        $(".message-close").click(function () {
 	           $(".new-message").css("display","none")
-	        });
+			});
+			
 	        BindControls();
 		})
-		function BindControls(){
+
+		function BindControls() {
 	        $.ajax({
 	            method:"POST",
 	            url:"{{url('User/findNamelist')}}",
@@ -349,14 +355,17 @@
 	                    html:true,
 	                    select : function(event, ui){
 	                        var terms = split( this.value );
-	                        console.log(terms);
+	                        
 	                        // remove the current input
 	                        terms.pop();
-	                        // add the selected item
+							
+							// add the selected item
 	                        terms.push( ui.item.value );
-	                        // add placeholder to get the comma-and-space at the end
+							
+							// add placeholder to get the comma-and-space at the end
 	                        terms.push( "" );
-	                        this.value = terms.join( "" );
+							this.value = terms.join( "" );
+							
 	                        return false;
 	                    }
 	                    })/*.focus(function() {
@@ -398,31 +407,31 @@
 $(document).ready(function(){
 	var $wrapper = $('#SortConversation');
 
-$wrapper.find('.outbox_div').sort(function (a, b) {
-    return +a.dataset.name - +b.dataset.name;
-})
-.appendTo( $wrapper );
-});
-	
-
-	$('#searchName').on('keyup keydown',function (){
-
-		var input,filter,ul,li,txtValue,a,i;
-		input = document.getElementById("searchName");
-    filter = input.value.toUpperCase();
-		ul = document.getElementById("SortConversation");
-    li = ul.getElementsByTagName("li");
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        txtValue = a.textContent || a.innerText;
-        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
+	$wrapper.find('.outbox_div').sort(function (a, b) {
+	        return +a.dataset.name - +b.dataset.name;
+	    })
+	    .appendTo($wrapper);
 	});
 
+	$('#searchName').on('keyup keydown', function () {
 
+		var input, filter, ul, li, txtValue, a, i;
+		
+	    input = document.getElementById("searchName");
+	    filter = input.value.toUpperCase();
+	    ul = document.getElementById("SortConversation");
+		li = ul.getElementsByTagName("li");
+		
+	    for (i = 0; i < li.length; i++) {
+	        a = li[i].getElementsByTagName("a")[0];
+			txtValue = a.textContent || a.innerText;
+			
+	        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+	            li[i].style.display = "";
+	        } else {
+	            li[i].style.display = "none";
+	        }
+	    }
+	});
 </script>
 @endsection

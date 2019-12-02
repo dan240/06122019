@@ -6,7 +6,7 @@
     <!-- Plugins and scripts required by this view-->
     <!-- <script src="{{ url('admin/js/charts.js')}}"></script>
      --><script src="{{ url('admin/js/tooltips.js')}}"></script>
-     <script src="http://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
     <!-- <script src="{{ url('admin/js/main.js')}}"></script> -->
 
     <script type="text/javascript">

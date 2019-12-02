@@ -7,17 +7,28 @@
 </style>
 <div class="container-fluid">
 	<div class="row" style="padding:10px;">
-        <div class="col-md-6">
-          <span style="font-size: 20px;">Users List</span>
-        </div>
-        <div class="col-md-6 text-right">
-          <a class="btn btn-primary" href="{{ url('Admin/addUserForm')}}">Add User</a>
-        </div>
-     </div>
-<div class="col-md-12 alert alert-danger er-msg" style="display: none"></div>
-	<div class="table-responsive">
-	<table id="example" class="display" style="width:100%">
-		<thead>
+		<div class="col-md-4">
+			<span style="font-size: 20px;">Users List</span>
+		</div>
+		<div class="col-md-4">
+			<form class="form-inline" method="get" action="{{ url('Admin/findUser') }}">
+				<div class="form-group mb-2">
+					<input type="text" class="form-control" name="query" placeholder="Find User">
+				</div>
+				<button type="submit" class="btn btn-primary mb-2">Search</button>
+			</form>
+		</div>
+		<div class="col-md-4 text-right">
+			<a class="btn btn-primary" href="{{ url('Admin/addUserForm')}}">Add User</a>
+		</div>
+	</div>
+
+	<div class="col-md-12 alert alert-danger er-msg" style="display: none"></div>
+
+	<div class="table-responsive bg-white">
+
+	<table class="table table-striped" style="width:100%">
+		<thead class="thead-light">
             <tr>
 				<th>#</th>
 				<th>Name</th>
@@ -36,7 +47,7 @@
         </thead>
 		<tbody>
 			<?php $i=1; ?>
-			<?php foreach($data as $row) { ?>
+			<?php foreach($userData['data'] as $row) { ?>
 			<tr>
 				<td>{{ $i }}</td>
 				<td>
@@ -200,7 +211,7 @@
 			</tr>
 			<?php $i++;} ?>
 		</tbody>
-		<tfoot>
+		<tfoot class="thead-light">
             <tr>
 				<th>#</th>
 				<th>Name</th>
@@ -218,12 +229,48 @@
             </tr>
         </tfoot>
 	</table>
+
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				Showing {{ $userData['from'] }} to {{ $userData['to'] }} of {{ $userData['total'] }} entries
+			</div>
+			<div class="col">
+				<nav>
+					<ul class="pagination justify-content-end">
+						@if ($userData['current_page'] != 1)
+							<li class="page-item">
+								<a class="page-link" href="{{ $userData['first_page_url'] }}">&laquo; First</a>
+							</li>
+						@endif
+						@if ($userData['prev_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $userData['prev_page_url'] }}">&lsaquo; Previous</a>
+							</li>
+						@endif
+						
+						@if ($userData['next_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $userData['next_page_url'] }}">&rsaquo; Next</a>
+							</li>
+						@endif
+						@if ($userData['current_page'] != $userData['last_page'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $userData['last_page_url'] }}">&raquo; Last</a>
+							</li>
+						@endif
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+
 	</div>
 </div>
 <script>
 	$(document).ready(function(){
 		$('.er-msg').hide();
-    	var dtable =  $('#example').DataTable();
+    	
 		$('body').on('click','.featuredAction', function (){
 			var obj = $(this);
 			var action = $(this).attr('data-action'); //0: hide , 1:show
@@ -389,7 +436,6 @@
 				}else{
 					$('.er-msg').show();
 					$(".er-msg").text('User not removed');
-					$('#example').DataTable();
 				}
 			}
 		})

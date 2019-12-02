@@ -1,17 +1,25 @@
 @extends('layouts.admin')
 @section('content')
 
-<div class="container-fluid">
+<div class="container-fluid bg-white">
 	<div class="row" style="padding:10px;">
         <div class="col-md-6">
           <span style="font-size: 20px;">User Management</span>
         </div>
         <div class="col-md-6 text-right">
+            <form class="form-inline" method="get" action="{{ url('Admin/userTrail') }}">
+				<div class="form-group mb-2">
+					<input type="text" class="form-control" name="query" placeholder="Find User">
+				</div>
+				<button type="submit" class="btn btn-primary mb-2">Search</button>
+			</form>
         </div>
     </div>
+
     <div class="err-msg"></div>
-    <table id="example" class="display" style="width:100%">
-        <thead>
+
+    <table class="table table-striped" style="width:100%">
+		<thead class="thead-light">
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -26,10 +34,10 @@
         </thead>
         <tbody>
             <?php $i=1; ?>
-            <?php foreach($data as $row) { ?>
+            <?php foreach($data["data"] as $row) { ?>
             <tr>
                 <td>{{ $i }}</td>
-                <td>{{ @$row['firstname'] }}{{ @$row['lastname'] }}</td>
+                <td>{{ @$row['firstname'] }} {{ @$row['lastname'] }}</td>
                 <td>
                     <?php if(@$row['usertype']=='1' && @$row['is_Professional']=='1') { 
                         echo "Company - Professional";
@@ -64,7 +72,7 @@
             </tr>
             <?php $i++;} ?>
         </tbody>
-        <tfoot>
+        <tfoot  class="thead-light">
             <tr>
                 <th>#</th>
                 <th>Name</th>
@@ -79,13 +87,49 @@
         </tfoot>
         
     </table>
+
+    <div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				Showing {{ $data['from'] }} to {{ $data['to'] }} of {{ $data['total'] }} entries
+			</div>
+			<div class="col">
+				<nav>
+					<ul class="pagination justify-content-end">
+						@if ($data['current_page'] != 1)
+							<li class="page-item">
+								<a class="page-link" href="{{ $data['first_page_url'] }}">&laquo; First</a>
+							</li>
+						@endif
+						@if ($data['prev_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $data['prev_page_url'] }}">&lsaquo; Previous</a>
+							</li>
+						@endif
+						
+						@if ($data['next_page_url'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $data['next_page_url'] }}">&rsaquo; Next</a>
+							</li>
+						@endif
+						@if ($data['current_page'] != $data['last_page'])
+							<li class="page-item">
+								<a class="page-link" href="{{ $data['last_page_url'] }}">&raquo; Last</a>
+							</li>
+						@endif
+					</ul>
+				</nav>
+			</div>
+		</div>
+		
+	</div>
     <script>
 
         $(document).ready(function() {
-        $('#example').DataTable();
-    } );
-        function editSubscription(id)
-        {
+            
+        });
+
+        function editSubscription(id) {
             window.location.href="{{ url('Admin/editSubscriptionForm/')}}/"+id;
         }
     </script>

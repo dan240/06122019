@@ -24,7 +24,7 @@ class UserInvestor extends Model
     }
     public function industry()
     {
-        return $this->hasOne('App\SectorType','id','industryFocus');
+        return $this->hasOne('App\Industry','id','industryFocus');
     }
      public function countryData()
     {

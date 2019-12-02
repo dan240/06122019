@@ -90,14 +90,14 @@ fieldset.scheduler-border {
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="fb-profile-block">
                         <?php if(!empty($data['banner_name'])){?>
-                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('uploads/images/'.$data['banner_name']) }}');"></div>
+                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('public/uploads/images/'.$data['banner_name']) }}');"></div>
                         <?php } else{?>
                         <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('images/profile_banner.jpg') }}')"></div>
                         <?php } ?>
                         <div class="profile-img">
                             <a href="#">
                                 <?php if(!empty($data['image_name'])){?>
-                                <img id="displayimage" src="{{ asset('uploads/images/'.$data['image_name'])}}" alt="" title="">
+                                <img id="displayimage" src="{{ asset('public/uploads/images/'.$data['image_name'])}}" alt="" title="">
                                 <?php } else{ ?>
                                     <img id="displayimage" src="{{ asset('images/user.png')}}" alt="" title="">
                                 <?php } ?>
@@ -390,21 +390,21 @@ fieldset.scheduler-border {
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Funding Goal $</small>
 
-                                        <input type="text" class="form-control" name="fd_goal" value="{{ @$data['fundingGoal'] }} $" readonly>
+                                        <input type="text" class="form-control" name="fd_goal" value="{{ @$data['fundingGoal'] }}" readonly>
 
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Minimum Reservation $</small>
 
-                                        <input type="text" class="form-control" name="min_reserve" value="{{ @$data['minReservation'] }} $" readonly>
+                                        <input type="text" class="form-control" name="min_reserve" value="{{ @$data['minReservation'] }}" readonly>
 
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Maximum Reservation $</small>
 
-                                        <input type="text" class="form-control" name="max_reserve" value="{{ @$data['maxReservation'] }} $" readonly>
+                                        <input type="text" class="form-control" name="max_reserve" value="{{ @$data['maxReservation'] }}" readonly>
 
                                     </div>
                                 </div>
@@ -590,7 +590,7 @@ fieldset.scheduler-border {
     <div class="input-group-prepend">
       <span class="input-group-text">$</span>
     </div>
-    <input type="text" class="form-control" name="reserved_amount" id="reserved_amount" placeholder="Maximum Reservation $6,000,000">
+    <input type="text" class="form-control" name="reserved_amount" id="reserved_amount" placeholder="Please propose reservation">
   </div>
          </div>    
         <div class="form-group"> <label>Add Comments</label>

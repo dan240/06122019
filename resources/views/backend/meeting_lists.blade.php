@@ -59,9 +59,9 @@
 				</td>
 				<td id="status_{{$row['id']}}">
 					<?php if(@$row['status']=='1'){?>
-						Active
+						<h4><span class="badge badge-success">Active</span></h4>
 					<?php } elseif(@$row['status']=='2'){ ?>
-						Inactive
+						<h4><span class="badge badge-danger">Inactive</span></h4>
 					<?php } else if(@$row['status']=='3'){ ?>
 						Pending
 					<?php } ?>
@@ -69,12 +69,12 @@
 				<td>{{ @$row['created_at']}}</td>
 				<td>
 					<span id="show_inactive_btn_{{$row['id']}}" style="@if(@$row['status']=='1') display:block; @else display: none; @endif">
-						<a class="btn btn-danger btn-sm" data-original-title="Unapprove" data-toggle="tooltip" data-placement="top" href="javascript:void(0)" onclick="InactiveMeeting('{{$row['id']}}',this)"> 
+						<a class="btn btn-info btn-sm" data-original-title="Unapprove" data-toggle="tooltip" data-placement="top" href="javascript:void(0)" onclick="InactiveMeeting('{{$row['id']}}',this)"> 
                   			<i class="fa fa-ban"></i> 
                 		</a>
                 	</span>
 					<span id="show_active_btn_{{$row['id']}}"  style="@if(@$row['status']=='2') display:block; @else display: none; @endif">
-						<a class="btn btn-success btn-sm" data-original-title="Approve" data-toggle="tooltip" data-placement="top" href="javascript:void(0)" onclick="ApprovedMeeting('{{$row['id']}}',this)"> 
+						<a class="btn btn-info btn-sm" data-original-title="Approve" data-toggle="tooltip" data-placement="top" href="javascript:void(0)" onclick="ApprovedMeeting('{{$row['id']}}',this)"> 
                   			<i class="fa fa-check"></i> 
                 		</a>
                 	</span>
@@ -134,10 +134,10 @@
 			{
 				if(response.msg=='success')
     				{
-    					$(".dis-msg").html('<div class="alert alert-success">Meeting inactive successfully</div>');
+    					$(".dis-msg").html('<div class="alert alert-success">Meeting set to Inactive successfully</div>');
     					$(".dis-msg").show();
     					
-    					$('#status_'+id).html("Inactive");
+    					$('#status_'+id).html('<h4><span class="badge badge-danger">Inactive</span></h4>');
     					$('#show_active_btn_'+id).show();
     					$('#show_inactive_btn_'+id).hide();
     				}else{
@@ -147,32 +147,24 @@
 			}
 		})
 	}
-	function ApprovedMeeting(id,obj)
-	{
+	function ApprovedMeeting(id,obj) {
 		$.ajax({
 			method:"POST",
 			url:"{{ url('Admin/ApprovedMeeting')}}",
 			data:{"_token":"{{ csrf_token()}}",id:id},
-			success:function(response)
-			{
-				if(response.msg=='success')
-    				{
-    					debugger;
-    					$(".dis-msg").html('<div class="alert alert-success">Meeting approved successfully</div>');
-    					$(".dis-msg").show();
-    					$('#status_'+id).html("Active");
-    					$('#show_active_btn_'+id).hide();
-    					$('#show_inactive_btn_'+id).show();
-    					/*$(obj).parents('td').sibling().find('.notok').text('Active');*/
-    				}else{
-    					$(".dis-msg").html('<div class="alert alert-danger">Meeting already approved</div>');
-    					$(".dis-msg").show();    					
-    				}
+			success:function(response) {
+				if (response.msg=='success') {
+					$(".dis-msg").html('<div class="alert alert-success">Meeting approved successfully.</div>');
+					$(".dis-msg").show();
+					$('#status_'+id).html('<h4><span class="badge badge-success">Active</span></h4>');
+					$('#show_active_btn_'+id).hide();
+					$('#show_inactive_btn_'+id).show();
+				} else {
+					$(".dis-msg").html('<div class="alert alert-danger">Meeting already approved</div>');
+					$(".dis-msg").show();    					
+				}
 			}
 		})
 	}
-
-
-
 </script>
 @endsection

@@ -88,14 +88,14 @@ button#menu1 {
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="fb-profile-block">
                         <?php if(!empty($data['banner_name'])){?>
-                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('uploads/images/'.$data['banner_name']) }}')"></div>
+                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('public/uploads/images/'.$data['banner_name']) }}')"></div>
                         <?php } else{?>
                         <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('images/profile_banner.jpg') }}')"></div>
                         <?php } ?>
                         <div class="profile-img">
                             <a href="javascript:;">
                                 <?php if(!empty($data['image_name'])){?>
-                                <img id="displayimage" src="{{ asset('uploads/images/'.$data['image_name'])}}" alt="" title="">
+                                <img id="displayimage" src="{{ asset('public/uploads/images/'.$data['image_name'])}}" alt="" title="">
                                 <?php } else{ ?>
                                     <img id="displayimage" src="{{ asset('images/user.png')}}" alt="" title="">
                                 <?php } ?>
@@ -221,7 +221,7 @@ button#menu1 {
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Company url</small>
 
-                                        <input type="url" class="form-control" name="cp_url" id="cp_url" value="{{ $data['companyUrl']}}">
+                                        <input type="text" class="form-control" name="cp_url" id="cp_url" value="{{ $data['companyUrl']}}">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
@@ -239,7 +239,7 @@ button#menu1 {
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Slideshare URL</small>
 
-                                        <input type="email" class="form-control" name="sd_url" id="sd_url" value="{{ $data['slideshareUrl']}}">
+                                        <input type="url" class="form-control" name="sd_url" id="sd_url" value="{{ $data['slideshareUrl']}}">
                                     </div>
                                 </div>
                             </div>
@@ -526,12 +526,12 @@ button#menu1 {
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 <script>
-
-    $(document).ready(function(){
-       
+    $(document).ready(function() {
         $('.chosen-select').chosen();
+
         var date_input=$('input[name="open_date"]'); //our date input has the name "date"
         var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+
         date_input.datepicker({
             "setDate": new Date(),
             format: 'yyyy-mm-dd',
@@ -539,285 +539,329 @@ button#menu1 {
             todayHighlight: true,
             autoclose: true,
             setDate: new Date(),
-        })
-       /* var date_input=$('input[name="close_date"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'dd/mm/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })*/
+        });
+       
 
         $("#cp_name").keyup(function(){
             var c_name = $(this).val();
             $("#dcp_name").val(c_name);
-        })
-    })
-
+        });
     
+        $.validator.addMethod( "url2", function( value, element ) {
+            return this.optional( element ) || /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/i.test( value );
+        }, $.validator.messages.url );
 
-    
-
-</script>
-<script>
-        $(document).ready(function(){
-            //$('.editCompany input[type=text]').attr("disabled",true);
-            $('.frm_disabled').find('input').attr('disabled','disabled')
-            $('.frm_disabled').find('select').attr('disabled','disabled')
-            $('.frm_disabled').find('textarea').attr('disabled','disabled')
-            $("#companyDetail").on('click',function(){
-                $("#companyDetail").find('.chosen-choices').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.chosen-choices').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.chosen-choices').find('input').css({
-                   'box-shadow' : 'none',
-                   'border' : 'none'
-                });
-                //$('.companyDetailsActive').find('select').removeAttr('disabled');
-                $('.chosen-select').prop('disabled', false).trigger("chosen:updated");
-                /*$('.companyDetailsActive').find('select').removeAttr('disabled');
-                $('.companyDetailsActive').find('textarea').removeAttr('disabled'); */               
+        @if(!Session::has('email_verified'))
+            $('.frm_disabled').find('input').attr('disabled','disabled');
+            $('.frm_disabled').find('select').attr('disabled','disabled');
+            $('.frm_disabled').find('textarea').attr('disabled','disabled');
+        @else
+            $("#companyDetail").find('.chosen-choices').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-
-            $("#personalDetail").on('click',function(){
-                $(".personalDetailsActive").find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.personalDetailsActive').find('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
-                $('.personalDetailsActive').find('.multiselect').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                /*$(".personalDetailsActive").removeAttr('disabled');*/
-                $('.personalDetailsActive').find('input,select,textarea').removeAttr('disabled');
-                /*$('.personalDetailsActive').find('select').removeAttr('disabled');
-                $('.personalDetailsActive').find('textarea').removeAttr('disabled');                */
+            $('.chosen-choices').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-            $("#socilMedia").on('click',function(){
-                $(".makeactivesocial").find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                /*$(".makeactivesocial").removeAttr('disabled');*/
-                $('.makeactivesocial').find('input,select,textarea').removeAttr('disabled');
-                /*$('.makeactivesocial').find('select').removeAttr('disabled');
-                $('.makeactivesocial').find('textarea').removeAttr('disabled');*/
+            $('.chosen-choices').find('input').css({
+                'box-shadow' : 'none',
+                'border' : 'none'
             });
-            $("#companyProfile").on('click',function(){
-                $(".companyProfileActive").find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.companyProfileActive').find('input').removeAttr('disabled');
-                $('.companyProfileActive').find('select').removeAttr('disabled');
-                $('.companyProfileActive').find('textarea').removeAttr('disabled');
-
+            $(".personalDetailsActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-            $("#fundraisingDetail").on('click',function(){
-                $(".fundraisDetailActive").find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.fundraisDetailActive').find('input').removeAttr('disabled');
-                $('.fundraisDetailActive').find('select').removeAttr('disabled');
-                $('.fundraisDetailActive').find('textarea').removeAttr('disabled');
+            $('.personalDetailsActive').find('.multiselect').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
+            $(".makeactivesocial").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $(".companyProfileActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $(".fundraisDetailActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+        @endif
 
+        $("#companyDetail").on('click',function(){
+            $("#companyDetail").find('.chosen-choices').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.chosen-choices').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.chosen-choices').find('input').css({
+                'box-shadow' : 'none',
+                'border' : 'none'
+            });
+            //$('.companyDetailsActive').find('select').removeAttr('disabled');
+            $('.chosen-select').prop('disabled', false).trigger("chosen:updated");
+            /*$('.companyDetailsActive').find('select').removeAttr('disabled');
+            $('.companyDetailsActive').find('textarea').removeAttr('disabled'); */               
+        });
 
-            function readURL(input) {
-               if(input.files.length>0 && input.files[0]){
-                    var reader=new FileReader();
-                     reader.onload = function(e) {
-                      $('#displayimage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
+        $("#personalDetail").on('click',function(){
+            $(".personalDetailsActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.personalDetailsActive').find('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
+            $('.personalDetailsActive').find('.multiselect').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            /*$(".personalDetailsActive").removeAttr('disabled');*/
+            $('.personalDetailsActive').find('input,select,textarea').removeAttr('disabled');
+            /*$('.personalDetailsActive').find('select').removeAttr('disabled');
+            $('.personalDetailsActive').find('textarea').removeAttr('disabled');                */
+        });
+
+        $("#socilMedia").on('click',function(){
+            $(".makeactivesocial").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            /*$(".makeactivesocial").removeAttr('disabled');*/
+            $('.makeactivesocial').find('input,select,textarea').removeAttr('disabled');
+            /*$('.makeactivesocial').find('select').removeAttr('disabled');
+            $('.makeactivesocial').find('textarea').removeAttr('disabled');*/
+        });
+
+        $("#companyProfile").on('click',function(){
+            $(".companyProfileActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.companyProfileActive').find('input').removeAttr('disabled');
+            $('.companyProfileActive').find('select').removeAttr('disabled');
+            $('.companyProfileActive').find('textarea').removeAttr('disabled');
+
+        });
+
+        $("#fundraisingDetail").on('click',function(){
+            $(".fundraisDetailActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.fundraisDetailActive').find('input').removeAttr('disabled');
+            $('.fundraisDetailActive').find('select').removeAttr('disabled');
+            $('.fundraisDetailActive').find('textarea').removeAttr('disabled');
+        });
+
+        function readURL(input) {
+            if(input.files.length>0 && input.files[0]){
+                var reader=new FileReader();
+                    reader.onload = function(e) {
+                    $('#displayimage').attr('src', e.target.result);
                 }
+                reader.readAsDataURL(input.files[0]);
             }
-            var formData=new FormData();
-            /*$("input[name='photo']").change(function(input) {
-            readURL(this);
-            });*/
+        }
+        var formData=new FormData();
+        /*$("input[name='photo']").change(function(input) {
+        readURL(this);
+        });*/
 
-            $('#upload-cover').change(function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                     formData.append("img",file);
-                   $('#bg-image').css('background-image', 'url("' + reader.result + '")');
-                }
-                if (file) {
-                    reader.readAsDataURL(file);
-                } else {
-                }
-            });
+        $('#upload-cover').change(function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                    formData.append("img",file);
+                $('#bg-image').css('background-image', 'url("' + reader.result + '")');
+            }
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+            }
+        });
 
-            $("#msg-response").hide();
-               $(".editCompany").validate({
-                //errorLabelContainer: "#msg",
-                //wrapper: "li",
-                errorClass: "my-error-class",
-                ignore: [],
-                  rules: {
-                        cp_name: { required: true},
-                        job_title: { required: true},
-                        cp_url: { required: true},
-                        /*fr_url: { required: true},*/
-                        c_tagline: { required: true},
-                        /*cp_text: { required: true},*/
-                        "cp_type[]": { required: true},
-                        "fd_type[]": { required: true},
-                        "sector[]": { required: true},
-                        "industry[]": { required: true},
-                        amt_raised: { required: true},
-                        fd_goal: { required: true},
-                        phoneno: { required: true},
-                        city: { required: true},
-                        country: { required: true},
-                        open_date: { required: true},
-                        close_date: { required: true},
-                        
-                    },
+        $("#msg-response").hide();
+            $(".editCompany").validate({
+            //errorLabelContainer: "#msg",
+            //wrapper: "li",
+            errorClass: "my-error-class",
+            ignore: [],
+                rules: {
+                    //cp_name: { required: true},
+                    //job_title: { required: true},
+                    cp_url: "url2",
+                    /*fr_url: { required: true},*/
+                    c_tagline: { required: true},
+                    /*cp_text: { required: true},*/
+                    "cp_type[]": { required: true},
+                    "fd_type[]": { required: true},
+                    "sector[]": { required: true},
+                    "industry[]": { required: true},
+                    amt_raised: { required: true},
+                    fd_goal: { required: true},
+                    //phoneno: { required: true},
+                    city: { required: true},
+                    country: { required: true},
+                    open_date: { required: true},
+                    close_date: { required: true},
                     
-                    messages: {
-                        cp_name: 'Company name should not be empty!',
-                        job_title: 'Job title should not be empty!',
-                        //cp_url: 'Company url should not be empty!',
-                        /*fr_url: 'Fundraising Url Should Not be Empty!',*/
-                        c_tagline: 'Company tagline should not be empty!',
-                        /*cp_text: 'Company description should Not be empty!',*/
-                        "cp_type[]": 'Company type should not be empty!',
-                        "fd_type[]": 'FundType should not be empty!',
-                        "sector[]": 'Sector should not be empty!',
-                        "industry[]": 'Indusrty should not be empty!',
-                        amt_raised: 'Ammount raised should not be empty!',
-                        fd_goal: 'Fund goal should not be empty!',
-                        phoneno: 'Phone number should not be empty!',
-                        city: 'City should not be empty!',
-                        country: 'Country name should not be empty!',
-                        open_date: 'Open date should not be empty!',
-                        close_date: 'Close date should not be empty!',
-
-                    },
-                submitHandler: function() {
-                    $(".editCompany").submit();
-                }
-           });
-
-            $("#save").on('click',function(e){
-
+                },
                 
+                messages: {
+                    //cp_name: 'Company name should not be empty!',
+                    //job_title: 'Job title should not be empty!',
+                    //cp_url: 'Company url should not be empty!',
+                    /*fr_url: 'Fundraising Url Should Not be Empty!',*/
+                    c_tagline: 'Company tagline should not be empty!',
+                    /*cp_text: 'Company description should Not be empty!',*/
+                    "cp_type[]": 'Company type should not be empty!',
+                    "fd_type[]": 'FundType should not be empty!',
+                    "sector[]": 'Sector should not be empty!',
+                    "industry[]": 'Indusrty should not be empty!',
+                    amt_raised: 'Ammount raised should not be empty!',
+                    fd_goal: 'Fund goal should not be empty!',
+                    //phoneno: 'Phone number should not be empty!',
+                    city: 'City should not be empty!',
+                    country: 'Country name should not be empty!',
+                    open_date: 'Open date should not be empty!',
+                    close_date: 'Close date should not be empty!',
 
-                if($(".editCompany").valid()){
-                    
-                    var formData = new FormData($('.editCompany')[0]);
-                    e.preventDefault();
-                    $.ajax({
-                        method:"POST",
-                        url:"{{ url('User/saveCompanyProfile')}}",
-                        data:formData,
-                        cache: false,
-                        processData: false, 
-                        contentType: false,
-                        success:function(response)
-                        {
-                            $("#msg-response").show();
-                            $(".editCompany").scrollTop();
-                            if(response.msg=='success')
-                            {
-                                $('input,select').css({
-                                    'box-shadow' : 'none',
-                                    'border-color' : '#d3dae2'
-                                })
-                                $('.chosen-choices').css({
-                                    'box-shadow' : 'none',
-                                    'border-color' : '#d3dae2'
-                                })
-                                //alert('Data added successfully');
+                },
+            submitHandler: function() {
+                $(".editCompany").submit();
+            }
+        });
 
-                                swal({
-                                    title: "Your profile has been updated successfully",
-                                    text: "",
-                                    type: "success",
-                                    showCancelButton: false,
-                                    showConfirmButton : true,
-                                    confirmButtonColor: "#DD6B55",
-                                    confirmButtonText: "Close!",
-                                    },function(){
-                                        setTimeout(() => {
-                                            window.scrollTo(0,0);
-                                        }, 1);
-                                });
+        $("#save").on('click',function(e) {
+            if ($(".editCompany").valid()) { 
+                var formData = new FormData($('.editCompany')[0]);
 
-                                $(".editCompany").scrollTop();
-                                $("#msg-response").html('<div class="alert alert-success">Data Saved Successfully.</div>');
-                                $('.personalDetailsActive').find('input,select,textarea').attr('disabled', true);
-                                $('.companyDetailsActive').find('input,select,textarea').attr('disabled', true);
-                                $('.makeactivesocial').find('input,select,textarea').attr('disabled', true);
-                                $('.companyProfileActive').find('input').attr('disabled', true);
-                                $('.companyProfileActive').find('select').attr('disabled', true);
-                                $('.companyProfileActive').find('textarea').attr('disabled', true);
-                                $('.fundraisDetailActive').find('input').attr('disabled', true);
-                                $('.fundraisDetailActive').find('select').attr('disabled', true);
-                                $('.fundraisDetailActive').find('textarea').attr('disabled', true);
-                                $('.personalDetailsActive').find('.multiselect').css({
-                                    'box-shadow' : 'none',
-                                    'border' : 'none'
-                                });    
-                            }else{
-                                $(".editCompany").scrollTop();
-                                //alert(response.msg);
-                                $("#msg-response").html('<div class="alert alert-danger">'+response.msg+'</div>');   
-                            }
-                            
-                        }
-                              
-                    });
-                }else{
-                    
-                    swal({
-                        title: "Fill all necessary fields, otherwise profile change will not be saved",
-                        text: "",
-                        type: "error",
-                        showCancelButton: false,
-                        showConfirmButton : true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "ok!",
-                        },function(){
-                            setTimeout(() => {
-                                window.scrollTo(0,200);
-                            }, 1);
-                    });
-                
-                    
-                }
-            });
-             $("#country").change(function(){
-                var country=$(this).val();
+                e.preventDefault();
+
                 $.ajax({
                     method:"POST",
-                    url:"{{ url('User/getcityList')}}",
-                    data:{"_token":"{{csrf_token()}}",cid:country},
+                    url:"{{ url('User/saveCompanyProfile')}}",
+                    data:formData,
+                    cache: false,
+                    processData: false, 
+                    contentType: false,
                     success:function(response)
                     {
-                        $('#city').html('').trigger('chosen:updated');
-                        var appenddata;
-                        var data = JSON.parse(response);
-                         $.each(data, function (key, value) {
-                             appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";                        
-                         });
-                         $('#city').html(appenddata).trigger('chosen:updated');
-                    }
-                })
-            })
+                        $("#msg-response").show();
+                        $(".editCompany").scrollTop();
+                        if(response.msg=='success')
+                        {
+                            $('input,select').css({
+                                'box-shadow' : 'none',
+                                'border-color' : '#d3dae2'
+                            })
+                            $('.chosen-choices').css({
+                                'box-shadow' : 'none',
+                                'border-color' : '#d3dae2'
+                            })
 
-            $("#publish").on('click',function(e){
+                            swal({
+                                title: "Your profile has been updated successfully",
+                                text: "",
+                                type: "success",
+                                showCancelButton: false,
+                                showConfirmButton : true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Close!",
+                                },function(){
+                                    setTimeout(() => {
+                                        window.scrollTo(0,0);
+                                    }, 1);
+                            });
+
+                            $(".editCompany").scrollTop();
+                            $("#msg-response").html('<div class="alert alert-success">Data Saved Successfully.</div>');
+                            $('.personalDetailsActive').find('input,select,textarea').attr('disabled', true);
+                            $('.companyDetailsActive').find('input,select,textarea').attr('disabled', true);
+                            $('.makeactivesocial').find('input,select,textarea').attr('disabled', true);
+                            $('.companyProfileActive').find('input').attr('disabled', true);
+                            $('.companyProfileActive').find('select').attr('disabled', true);
+                            $('.companyProfileActive').find('textarea').attr('disabled', true);
+                            $('.fundraisDetailActive').find('input').attr('disabled', true);
+                            $('.fundraisDetailActive').find('select').attr('disabled', true);
+                            $('.fundraisDetailActive').find('textarea').attr('disabled', true);
+                            $('.personalDetailsActive').find('.multiselect').css({
+                                'box-shadow' : 'none',
+                                'border' : 'none'
+                            });    
+                        } else {
+                            $(".editCompany").scrollTop();
+                            //alert(response.msg);
+                            $("#msg-response").html('<div class="alert alert-danger">'+response.msg+'</div>');   
+                        }   
+                    }        
+                });
+            } else {
+                swal({
+                    title: "Fill all necessary fields, otherwise profile change will not be saved",
+                    text: "",
+                    type: "error",
+                    showCancelButton: false,
+                    showConfirmButton : true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "ok!",
+                    },function(){
+                        setTimeout(() => {
+                            window.scrollTo(0,200);
+                        }, 1);
+                });        
+            }
+        });
+
+        $("#country").change(function(){
+            var country=$(this).val();
+            $.ajax({
+                method:"POST",
+                url:"{{ url('User/getcityList')}}",
+                data:{"_token":"{{csrf_token()}}",cid:country},
+                success:function(response)
+                {
+                    $('#city').html('').trigger('chosen:updated');
+                    var appenddata;
+                    var data = JSON.parse(response);
+                        $.each(data, function (key, value) {
+                            appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";                        
+                        });
+                        $('#city').html(appenddata).trigger('chosen:updated');
+                }
+            })
+        });
+
+        $('#sector').change(function() {
+            var sectorId = $("#sector").val();
+            var $industry = $("#industry");
+
+            $industry.prop('disabled', true).trigger("chosen:updated");
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('getSectorIndustry?sector_id=')}}" + sectorId,
+                success: function (result) {
+                    $industry.empty();
+
+                    if (result) {
+                        var result = JSON.parse(result);
+
+                        $.each(result, function (i, industry) {
+                            $industry.append('<option value="' + industry.id + '">' + industry.industryName + '</option>');
+                        });
+                    }
+
+                    $industry.prop('disabled', false).trigger("chosen:updated");
+                }
+            });
+        });
+
+        $("#publish").on('click',function(e){
             e.preventDefault();
             $.ajax({
                 method:"POST",
@@ -834,96 +878,96 @@ button#menu1 {
                 }
             });
         });
-        });
-                function viewCompanyProfile(id){
-
-                    window.location.href="{{ url('User/viewcProfile/') }}/"+id;
-                }
-    </script>
-    <script>
-            $(document).ready(function() {
-                $('#c_tagline').on('input propertychange', function() {
-                    CharLimit(this, 50);
-                });
-            });
-
-            function CharLimit(input, maxChar) {
-                var len = $(input).val().length;
-                if (len > maxChar) {
-                    $(input).val($(input).val().substring(0, maxChar));
-                }
-            }
-                        $('input#amt_raised').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            });    
-            $('input#fd_goal').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            });    
-            $('input#min_reserve').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            });    
-            $('input#max_reserve').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            });
-
+    });
             
-            $("#phoneno").keypress(function (e) {
-             //if the letter is not digit then display error and don't type anything
-             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                //display error message
-                       return false;
-            }
-           });
+    function viewCompanyProfile(id){
+        
+        window.location.href="{{ url('User/viewcProfile/') }}/"+id;
+    }
+    
+    $(document).ready(function() {
+        $('#c_tagline').on('input propertychange', function() {
+            CharLimit(this, 50);
+        });
+    });
+    
+    function CharLimit(input, maxChar) {
+        var len = $(input).val().length;
+        if (len > maxChar) {
+            $(input).val($(input).val().substring(0, maxChar));
+        }
+    }
 
+    $('input#amt_raised').keyup(function(e) {
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+        
+        // format number
+        $(this).val(function(index, value) {
+            return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+        });
+    });    
 
-             function userCompanyIntrestedIn(id){
+    $('input#fd_goal').keyup(function(e) {    
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+        
+        // format number
+        $(this).val(function(index, value) {
+            return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+        });
+    });    
 
-                    window.location.href="{{ url('User/userCompanyIntrestedIn/') }}/"+id;
-                }
-                function userCompanyExpressed(id){
+    $('input#min_reserve').keyup(function(e) {
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+        
+        // format number
+        $(this).val(function(index, value) {
+            return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+        });
+    });    
 
-                    window.location.href="{{ url('User/userProfileCompany/') }}/"+id;
-                }
+    $('input#max_reserve').keyup(function(e) {
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+        
+        // format number
+        $(this).val(function(index, value) {
+            return value
+            .replace(/\D/g, "")
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            ;
+        });
+    });
+    
+    
+    $("#phoneno").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
+    });
+    
+    
+    function userCompanyIntrestedIn(id){
+        
+        window.location.href="{{ url('User/userCompanyIntrestedIn/') }}/"+id;
+    }
+    function userCompanyExpressed(id){
+        
+        window.location.href="{{ url('User/userProfileCompany/') }}/"+id;
+    }
 </script>
 
 <!-- Modal -->
@@ -938,17 +982,18 @@ button#menu1 {
 
                         </div>
                         <div class="modal-body">
-                            <div style="padding: 20px;margin: 20px;">
-                                <div id="imgContainer" style="height:250px;">
+                            <div style="padding: 20px; margin: 20px;">
+                                <div id="imgContainer">
+                                    <img id="cropper-img" style="max-width: 100%;" />
                                 </div>
                             </div>
-                            <div class="form-horizontal">
 
+                            <div class="form-horizontal">
                                 <div class="form-group row">
                                     <div class="col" style="text-align:center;margin:10px">
                                         <input type="file" style="display:none" id="imagePicker" />
-                                       <!--  <button type="button" id="ChooseImage" class="btn btn-primary">Choose Image</button>
-                                        --> <button type="button" id="SelectImage" class="btn btn-primary">Done</button>
+                                            <!-- <button type="button" id="ChooseImage" class="btn btn-primary">Choose Image</button> -->
+                                            <button type="button" id="SelectImage" class="btn btn-primary">Done</button>
                                     </div>
                                 </div>
                             </div>
@@ -957,7 +1002,12 @@ button#menu1 {
                 </div>
             </div>
 
+            
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css" />
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
+            <!--
             <link rel="stylesheet" type="text/css" href="{{ asset('/js/croppie.css')}}" />
             <script type="text/javascript" src="{{ asset('/js/croppie.js')}}"></script>
+            -->
             <script type="text/javascript" src="{{ asset('/js/SMS.js')}}"></script>
     @endsection

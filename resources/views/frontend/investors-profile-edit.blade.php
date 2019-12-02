@@ -70,14 +70,14 @@ button#menu1 {
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="fb-profile-block">
                         <?php if(!empty($data['banner_name'])){?>
-                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('uploads/images/'.$data['banner_name']) }}');"></div>
+                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('public/uploads/images/'.$data['banner_name']) }}');"></div>
                         <?php } else{?>
                         <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('images/profile_banner.jpg') }}')"></div>
                         <?php } ?>
                         <div class="profile-img">
                             <a href="javascript::">
                                 <?php if(!empty($data['image_name'])){?>
-                                <img id="displayimage" src="{{ asset('uploads/images/'.$data['image_name'])}}" alt="" title="">
+                                <img id="displayimage" src="{{ asset('public/uploads/images/'.$data['image_name'])}}" alt="" title="">
                                 <?php } else{ ?>
                                     <img id="displayimage" src="{{ asset('images/user.png')}}" alt="" title="">
                                 <?php } ?>
@@ -309,11 +309,14 @@ button#menu1 {
                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group inner-label-holder multiselect">
                                         <small class="label smallLabel" for="input">Industry Focus</small>
-                                        <select class="chosen-select" multiple placeholder="Select Industry Focus" tabindex="4" name="industryFocus[]">
+                                        <select class="chosen-select" multiple placeholder="Select Industry Focus" tabindex="4" name="industryFocus[]" id="industryFocus">
                                                 <option value="">---Select Industry---</option>
                                                 <option value="0">Select All</option>
-                                                <?php  $ind = explode(",",$data['industryFocus']);
-                                                        foreach ($industry as $in) { ?>
+                                                <?php
+                                                    $ind = explode(",", $data['industryFocus']);
+
+                                                    foreach ($industry as $in) {
+                                                ?>
                                                         <option value="{{ $in['id'] }}" <?php if(in_array($in['id'], $ind)){ echo "selected"; }?>>{{ $in['industryName']}}</option>
                                                 <?php }  ?>
                                         </select>
@@ -322,7 +325,7 @@ button#menu1 {
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group inner-label-holder multiselect">
                                         <small class="label smallLabel" for="input">Region Focus</small>
-                                        <select class="chosen-select" multiple placeholder="Select Region Focus" tabindex="4" name="regionFocus[]">
+                                        <select class="chosen-select" multiple placeholder="Select Region Focus" tabindex="4" name="regionFocus[]" id="regionFocus">
                                             <option value="">---Select Region---</option>
                                             <option value="0">Select All</option>
                                             <?php $in = explode(",",@$data['regionFocus']);
@@ -336,12 +339,15 @@ button#menu1 {
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                                     <div class="form-group inner-label-holder multiselect">
                                         <small class="label smallLabel" for="input">Country Focus</small>
-                                        <select class="chosen-select" multiple placeholder="Select Country Focus" tabindex="4" name="countryFocus[]">
+                                        <select class="chosen-select" multiple placeholder="Select Country Focus" tabindex="4" name="countryFocus[]" id="countryFocus">
                                                 <option value="">---Select Country---</option>
                                                 <option value="0">Select All</option>
-                                                <?php  $cont = explode(",",$data['countryFocus']);
-                                                    foreach ($country as $co) { ?>
-                                                        <option value="{{ $co['id'] }}" <?php if(in_array($co['id'] , $cont)){ echo "selected"; } ?>>{{ $co["country_name"]}}</option>
+                                                <?php
+                                                    $cont = explode(",", $data['countryFocus']);
+
+                                                    foreach ($regionFocusCountries as $region_focus_country) {
+                                                ?>
+                                                        <option value="{{ $region_focus_country['id'] }}" <?php if(in_array($region_focus_country['id'] , $cont)){ echo "selected"; } ?>>{{ $region_focus_country["country_name"]}}</option>
                                                 <?php  } ?>
                                         </select>
                                     </div>
@@ -390,12 +396,16 @@ button#menu1 {
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                    <?php $t = preg_replace(
-            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
-            "//www.youtube.com/embed/$2",
-            $data['investorFirmvideo']
-        ); ?>
-                                  <iframe width="100%" height="500px" src="{{$t}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                                <?php
+                                    if ($data['investorFirmvideo'] && stripos($data['investorFirmvideo'], "https://www.youtube.com") !== false) {
+                                        $t = preg_replace(
+                                            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+                                            "//www.youtube.com/embed/$2",
+                                            $data['investorFirmvideo']
+                                        );
+                                ?>
+                                    <iframe width="100%" height="500px" src="{{$t}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                                <?php } ?>
                                 </div>
                          
                                 
@@ -486,379 +496,451 @@ button#menu1 {
         {{ Form::close()}}
     
 
-    <script src="{{ url('js/jquery.validate.min.js')}}"></script>
+<script src="{{ url('js/jquery.validate.min.js')}}"></script>
 <script>
-        $(document).ready(function(){
-            
-
+    $(document).ready(function() {
+        @if(!Session::has('email_verified'))
             $('.frm_disabled').find('input').attr('disabled','disabled');
             $('.frm_disabled').find('select').attr('disabled','disabled');
             $('.frm_disabled').find('textarea').attr('disabled','disabled');
-
-            $("#personalDetail").on('click',function(){
-                /*$(".personalDetailsActive").removeAttr('disabled');*/
-                $(".personalDetailsActive").find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.personalDetailsActive').find('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
-                $('.personalDetailsActive').find('.multiselect').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.personalDetailsActive').find('input').removeAttr('disabled');
-                $('.personalDetailsActive').find('select').removeAttr('disabled');
-                $('.personalDetailsActive').find('textarea').removeAttr('disabled');                
+        @else
+            $(".personalDetailsActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-            $("#socilMedia").on('click',function(){
-                /*$(".makeactivesocial").removeAttr('disabled');*/
-                $('.makeactivesocial').find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.makeactivesocial').find('input').removeAttr('disabled');
-                $('.makeactivesocial').find('select').removeAttr('disabled');
-                $('.makeactivesocial').find('textarea').removeAttr('disabled');
+            $('.personalDetailsActive').find('.multiselect').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-            $("#investorProfile").on('click',function(){
-                $('.investorProfileActive').find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.investorProfileActive').find('input').removeAttr('disabled');
-                $('.investorProfileActive').find('select').removeAttr('disabled');
-                $('.investorProfileActive').find('textarea').removeAttr('disabled');
-
+            $('.makeactivesocial').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
-            $("#fundraisingDetail").on('click',function(){
-                $('.fundraisDetailActive').find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.fundraisDetailActive').find('input').removeAttr('disabled');
-                $('.fundraisDetailActive').find('select').removeAttr('disabled');
-                $('.fundraisDetailActive').find('textarea').removeAttr('disabled');
+            $('.investorProfileActive').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
             });
+            $('.fundraisDetailActive').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+        @endif    
 
+        $("#personalDetail").on('click',function(){
+            /*$(".personalDetailsActive").removeAttr('disabled');*/
+            $(".personalDetailsActive").find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.personalDetailsActive').find('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
+            $('.personalDetailsActive').find('.multiselect').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.personalDetailsActive').find('input').removeAttr('disabled');
+            $('.personalDetailsActive').find('select').removeAttr('disabled');
+            $('.personalDetailsActive').find('textarea').removeAttr('disabled');                
+        });
 
+        $("#socilMedia").on('click',function(){
+            /*$(".makeactivesocial").removeAttr('disabled');*/
+            $('.makeactivesocial').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.makeactivesocial').find('input').removeAttr('disabled');
+            $('.makeactivesocial').find('select').removeAttr('disabled');
+            $('.makeactivesocial').find('textarea').removeAttr('disabled');
+        });
 
+        $("#investorProfile").on('click',function(){
+            $('.investorProfileActive').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.investorProfileActive').find('input').removeAttr('disabled');
+            $('.investorProfileActive').find('select').removeAttr('disabled');
+            $('.investorProfileActive').find('textarea').removeAttr('disabled');
 
-            function readURL(input) {
-                if(input.files.length>0 && input.files[0]){
-                    var reader=new FileReader();
-                    reader.onload = function(e) {
-                      $('#displayimage').attr('src', e.target.result);
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                 }
+        });
+        $("#fundraisingDetail").on('click',function(){
+            $('.fundraisDetailActive').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.fundraisDetailActive').find('input').removeAttr('disabled');
+            $('.fundraisDetailActive').find('select').removeAttr('disabled');
+            $('.fundraisDetailActive').find('textarea').removeAttr('disabled');
+        });
+
+        function readURL(input) {
+            if(input.files.length>0 && input.files[0]){
+                var reader=new FileReader();
+                reader.onload = function(e) {
+                    $('#displayimage').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+                }
+        }
+        var formData = new FormData();
+        /*$("input[name='photo']").change(function(input) {
+            readURL(this);
+        });*/
+
+        $('#upload-cover').change(function () {
+            var file = this.files[0];
+            var reader = new FileReader();
+            reader.onloadend = function () {
+                formData.append("img",file);
+                $('#bg-image').css('background-image', 'url("' + reader.result + '")');
             }
-            var formData=new FormData();
-            /*$("input[name='photo']").change(function(input) {
-                readURL(this);
-            });*/
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+            }
+        });
 
-            $('#upload-cover').change(function () {
-                var file = this.files[0];
-                var reader = new FileReader();
-                reader.onloadend = function () {
-                    formData.append("img",file);
-                    $('#bg-image').css('background-image', 'url("' + reader.result + '")');
-                }
-                if (file) {
-                    reader.readAsDataURL(file);
-                } else {
-                }
-            });
+        $("#investor-msg").hide();
+        
+        $(".editInvestors").validate({
+            //errorLabelContainer: "#msg",
+            //wrapper: "li",
+            errorClass: "my-error-class",
+            ignore: [],
+            rules: {
+                    firstname: { required: true},
+                    lastname: { required: true},
+                    //firmName: { required: true},
+                    //jobTitle: { required: true},
+                    cp_url: { required: true},
+                    "investmentType[]": { required: true},
+                    firmTagline: { required: true},
+                    "investorType[]": { required: true},
+                    cp_type: { required: true},
+                    profileText: { required: true},
+                    sector: { required: true},
+                    industry: { required: true},
+                    amt_raised: { required: true},
+                    fd_goal: { required: true},
+                    //phoneno: { required: true},
+                    city: { required: true},
+                    country: { required: true},
+                    "countryFocus[]": { required: true},
+                    "regionFocus[]": { required: true},
+                    bioData:{required: true},  
+                    "sectorFocus[]":{required:true},
+                    "industryFocus[]":{required:true},
+                    investmentRangefrm: { required: true},
+                    investmentRangeto: { required: true},
+                    assetUndermgmt: { required: true }
+                },
+                messages: {
+                    firstname: 'First name should not be empty!',
+                    lastname: 'Last name should not be empty!',
+                    firmName: 'Firm name should not be empty!',
+                    jobTitle: 'Job title should not be empty!',
+                    cp_url: 'Company url should not be empty!',
+                    "investorType[]": 'Investor type Should Not be Empty!',
+                    firmTagline: 'Firm tagline should not be empty!',
+                    "investmentType[]": 'Investment type should Not be empty!',
+                    cp_type: 'Company type should not be empty!',
+                    profileText: 'Profile text should not be empty!',
+                    sector: 'Sector should not be empty!',
+                    "industryFocus[]": 'Industry should not be empty!',
+                    amt_raised: 'Ammount raised should not be empty!',
+                    fd_goal: 'Fund goal should not be empty!',
+                    phoneno: 'Phone number should not be empty!',
+                    city: 'City should not be empty!',
+                    country: 'Country name should not be empty!',
+                    "countryFocus[]": 'Country focus should not be empty!',
+                    "regionFocus[]": 'Region focus should not be empty!',
+                    assetUndermgmt:'Assest Under Management should not empty',
+                    investmentRangefrm:'Investment range from should not empty',
+                    investmentRangeto:'Investment range to should not empty',
+                    bioData:'Investor bio data should not empty',
+                    "sectorFocus[]":'Sector focus sholud not empty',
+                },
+            submitHandler: function(form) {
+                form.submit();
+            }
+        });
 
-            $("#investor-msg").hide();
-            
-            $(".editInvestors").validate({
-                //errorLabelContainer: "#msg",
-                //wrapper: "li",
-                errorClass: "my-error-class",
-                ignore: [],
-                rules: {
-                        firstname: { required: true},
-                        lastname: { required: true},
-                        firmName: { required: true},
-                        jobTitle: { required: true},
-                        cp_url: { required: true},
-                        "investmentType[]": { required: true},
-                        firmTagline: { required: true},
-                        "investorType[]": { required: true},
-                        cp_type: { required: true},
-                        profileText: { required: true},
-                        sector: { required: true},
-                        industry: { required: true},
-                        amt_raised: { required: true},
-                        fd_goal: { required: true},
-                        phoneno: { required: true},
-                        city: { required: true},
-                        country: { required: true},
-                        "countryFocus[]": { required: true},
-                        "regionFocus[]": { required: true},
-                        bioData:{required: true},  
-                        "sectorFocus[]":{required:true},
-                        "industryFocus[]":{required:true},
-                        investmentRangefrm: { required: true},
-                        investmentRangeto: { required: true},
-                        assetUndermgmt: { required: true }
-                    },
-                    
-                    messages: {
-                        firstname: 'First name should not be empty!',
-                        lastname: 'Last name should not be empty!',
-                        firmName: 'Firm name should not be empty!',
-                        jobTitle: 'Job title should not be empty!',
-                        cp_url: 'Company url should not be empty!',
-                        "investorType[]": 'Investor type Should Not be Empty!',
-                        firmTagline: 'Firm tagline should not be empty!',
-                        "investmentType[]": 'Investment type should Not be empty!',
-                        cp_type: 'Company type should not be empty!',
-                        profileText: 'Profile text should not be empty!',
-                        sector: 'Sector should not be empty!',
-                        "industryFocus[]": 'Industry should not be empty!',
-                        amt_raised: 'Ammount raised should not be empty!',
-                        fd_goal: 'Fund goal should not be empty!',
-                        phoneno: 'Phone number should not be empty!',
-                        city: 'City should not be empty!',
-                        country: 'Country name should not be empty!',
-                        "countryFocus[]": 'Country focus should not be empty!',
-                        "regionFocus[]": 'Region focus should not be empty!',
-                        assetUndermgmt:'Assest Under Management should not empty',
-                        investmentRangefrm:'Investment range from should not empty',
-                        investmentRangeto:'Investment range to should not empty',
-                        bioData:'Investor bio data should not empty',
-                        "sectorFocus[]":'Sector focus sholud not empty',
-                    },
-                submitHandler: function(form) {
-                    form.submit();
-                }
-            });
-
-            $("#save").on('click',function(e){
-
-               
-                if($(".editInvestors").valid()){
-                    var formData = new FormData($('.editInvestors')[0]);
-                    e.preventDefault();
-                    $.ajax({
-                        method:"POST",
-                        url:"{{ url('User/saveInvestorProfile')}}",
-                        data:formData,
-                        cache: false,
-                        processData: false, 
-                        contentType: false,
-                        success:function(response)
-                        {
-                            $("#investor-msg").show();
-                            if(response.msg=='success')
-                            {   
-                                $('input,select').css({
-                                    'box-shadow' : 'none',
-                                    'border-color' : '#d3dae2'
-                                })
-                                $('.chosen-choices').css({
-                                    'box-shadow' : 'none',
-                                    'border-color' : '#d3dae2'
-                                })
-                                
-                                
-                                swal({
-                                    title: "Your profile has been updated successfully",
-                                    text: "",
-                                    type: "success",
-                                    showCancelButton: false,
-                                    showConfirmButton : true,
-                                    confirmButtonColor: "#DD6B55",
-                                    confirmButtonText: "Close!",
-                                    },function(){
-                                        setTimeout(() => {
-                                            window.scrollTo(0,0);
-                                        }, 1);
-                                });
-                                $('#investor-msg').html('<div class="alert alert-success">Data Saved Successfully.</div>');
-                                $('.personalDetailsActive').find('input').attr('disabled', true);
-                                $('.personalDetailsActive').find('select').attr('disabled', true);
-                                $('.personalDetailsActive').find('textarea').attr('disabled', true); 
-                                $('.makeactivesocial').find('input').attr('disabled', true);
-                                $('.makeactivesocial').find('select').attr('disabled', true);
-                                $('.makeactivesocial').find('textarea').attr('disabled', true);
-                                $('.investorProfileActive').find('input').attr('disabled', true);
-                                $('.investorProfileActive').find('select').attr('disabled', true);
-                                $('.investorProfileActive').find('textarea').attr('disabled', true);
-                                $('.fundraisDetailActive').find('input').attr('disabled', true);
-                                $('.fundraisDetailActive').find('select').attr('disabled', true);
-                                $('.fundraisDetailActive').find('textarea').attr('disabled', true);
-                                $('.chosen-select').attr('disabled', true).trigger("chosen:updated");
-                                $('.personalDetailsActive').find('.multiselect').css({
-                                    'box-shadow' : 'none',
-                                    'border' : 'none'
-                                });
-                            }else{
-                               
-                                $('#investor-msg').html('<div class="alert alert-success">'+response.msg+'</div>')
-                            }
-                        }
-                              
-                    });
-                }else{
-                    
-                    swal({
-                        title: "Fill all necessary fields, otherwise profile change will not be saved",
-                        text: "",
-                        type: "error",
-                        showCancelButton: false,
-                        showConfirmButton : true,
-                        confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "ok!",
-                        },function(){
-                            setTimeout(() => {
-                                window.scrollTo(0,200);
-                            }, 1);
-                    });
-                    
-                    
-                }
-            });
-
-            $("#country").change(function(){
-                var country=$(this).val();
-                $.ajax({
-                    method:"POST",
-                    url:"{{ url('User/getcityList')}}",
-                    data:{"_token":"{{csrf_token()}}",cid:country},
-                    success:function(response)
-                    {
-                        var appenddata;
-                        $('#city').html('').trigger('chosen:updated');
-                        var data = JSON.parse(response);
-                        $.each(data, function (key, value) {
-                            appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";                        
-                        });
-                        $('#city').html(appenddata).trigger('chosen:updated');
-                    }
-                })
-            })
-
-
-            $("#publish").on('click',function(e){
+        $("#save").on('click',function(e) {
+            if($(".editInvestors").valid()){
+                var formData = new FormData($('.editInvestors')[0]);
                 e.preventDefault();
                 $.ajax({
                     method:"POST",
-                    url:"{{ url('User/investorPublishData') }}",
-                    data:{"_token":"{{csrf_token()}}"},
-                    success:function(response){
-                        var res = JSON.parse(response);
-                        if(res.msg =='success'){
-                            alert('Data published successfully');
-                            /*window.location.href="{{ url('User/index') }}";*/
-                        }else{
-                            alert('Data already published');
+                    url:"{{ url('User/saveInvestorProfile')}}",
+                    data:formData,
+                    cache: false,
+                    processData: false, 
+                    contentType: false,
+                    success:function(response) {
+                        if (response.msg=='success') {   
+                            $("#investor-msg").show();
+
+                            $('input,select').css({
+                                'box-shadow' : 'none',
+                                'border-color' : '#d3dae2'
+                            })
+
+                            $('.chosen-choices').css({
+                                'box-shadow' : 'none',
+                                'border-color' : '#d3dae2'
+                            })
+                            
+                            swal({
+                                title: "Your profile has been updated successfully",
+                                text: "",
+                                type: "success",
+                                showCancelButton: false,
+                                showConfirmButton : true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Close!",
+                                },function(){
+                                    setTimeout(() => {
+                                        window.scrollTo(0,0);
+                                    }, 1);
+                            });
+
+                            $('#investor-msg').html('<div class="alert alert-success">Data Saved Successfully.</div>');
+                            $('.personalDetailsActive').find('input').attr('disabled', true);
+                            $('.personalDetailsActive').find('select').attr('disabled', true);
+                            $('.personalDetailsActive').find('textarea').attr('disabled', true); 
+                            $('.makeactivesocial').find('input').attr('disabled', true);
+                            $('.makeactivesocial').find('select').attr('disabled', true);
+                            $('.makeactivesocial').find('textarea').attr('disabled', true);
+                            $('.investorProfileActive').find('input').attr('disabled', true);
+                            $('.investorProfileActive').find('select').attr('disabled', true);
+                            $('.investorProfileActive').find('textarea').attr('disabled', true);
+                            $('.fundraisDetailActive').find('input').attr('disabled', true);
+                            $('.fundraisDetailActive').find('select').attr('disabled', true);
+                            $('.fundraisDetailActive').find('textarea').attr('disabled', true);
+                            $('.chosen-select').attr('disabled', true).trigger("chosen:updated");
+                            $('.personalDetailsActive').find('.multiselect').css({
+                                'box-shadow' : 'none',
+                                'border' : 'none'
+                            });
+                        } else {
+                            swal({
+                                title: "Invalid Values",
+                                text: response.msg,
+                                type: "error",
+                                showCancelButton: false,
+                                showConfirmButton : true,
+                                confirmButtonColor: "#DD6B55",
+                                confirmButtonText: "Okay",
+                            });
                         }
                     }
                 });
-            });
-
-            $("#investorDetail").on('click',function(){
-                $('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
-                $('.investorDetailsActive').find('input,select,textarea').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
+            } else {  
+                swal({
+                    title: "Fill all necessary fields, otherwise profile change will not be saved",
+                    text: "",
+                    type: "error",
+                    showCancelButton: false,
+                    showConfirmButton : true,
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "ok!",
+                    },function(){
+                        setTimeout(() => {
+                            window.scrollTo(0,200);
+                        }, 1);
                 });
-                $('.chosen-choices').css({
-                   'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
-                   'border' : '1px solid rgba(81, 203, 238, 1)'
-                });
-                $('.chosen-choices').find('input').css({
-                   'box-shadow' : 'none',
-                   'border' : 'none'
-                });
-                $('.investorDetailsActive').find('input').removeAttr('disabled');
-                $('.investorDetailsActive').find('select').removeAttr('disabled');
-                $('.investorDetailsActive').find('textarea').removeAttr('disabled');    
-                //$('.chosen-select').prop('disabled', false).trigger("liszt:updated");            
-            });
-
+                
+                
+            }
         });
 
+        $("#country").change(function(){
+            var country = $(this).val();
 
+            $.ajax({
+                method:"POST",
+                url:"{{ url('User/getcityList')}}",
+                data:{"_token":"{{csrf_token()}}",cid:country},
+                success:function(response) {
+                    var appenddata;
+                    $('#city').html('').trigger('chosen:updated');
+                    var data = JSON.parse(response);
+                    $.each(data, function (key, value) {
+                        appenddata += "<option value = '" + value.id + " '>" + value.city_name + " </option>";                        
+                    });
+                    $('#city').html(appenddata).trigger('chosen:updated');
+                }
+            })
+        })
 
-        function viewInvestorProfile(id)
-            {
-                window.location.href="{{ url('User/viewiProfile/') }}/"+id;
-            }
-    </script>
-    <script>
-            $(document).ready(function() {
-                $('#textlimit').on('input propertychange', function() {
-                    CharLimit(this, 50);
-                });
+        $('#multiSector').change(function() {
+            var sectorId = $("#multiSector").val();
+            var $industryFocus = $("#industryFocus");
+
+            $industryFocus.prop('disabled', true).trigger("chosen:updated");
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('getSectorIndustry?sector_id=')}}" + sectorId,
+                success: function (result) {
+                    $industryFocus.empty();
+
+                    if (result) {
+                        var result = JSON.parse(result);
+
+                        $.each(result, function (i, industry) {
+                            $industryFocus.append('<option value="' + industry.id + '">' + industry.industryName + '</option>');
+                        });
+                    }
+
+                    $industryFocus.prop('disabled', false).trigger("chosen:updated");
+                }
             });
+        });
 
-            function CharLimit(input, maxChar) {
-                var len = $(input).val().length;
-                if (len > maxChar) {
-                    $(input).val($(input).val().substring(0, maxChar));
+        $("#regionFocus").change(function() {
+            var region_id = $("#regionFocus").val();
+            var $countryFocus = $("#countryFocus");
+
+            $countryFocus.prop('disabled', true).trigger("chosen:updated");
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('getRegionCountries?region_id=')}}" + region_id,
+                success: function (result) {
+                    $countryFocus.empty();
+
+                    if (result) {
+                        var result = JSON.parse(result);
+
+                        $.each(result, function (i, country) {
+                            $countryFocus.append('<option value="' + country.id + '">' + country.country_name + '</option>');
+                        });
+                    }
+
+                    $countryFocus.prop('disabled', false).trigger("chosen:updated");
                 }
-            }
-              $('input#assetUndermgmt').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            }); 
-                 $('input#investmentRangefrm').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
-            });    
-            $('input#investmentRangeto').keyup(function(e) {
-
-              // skip for arrow keys
-              if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
-
-              // format number
-              $(this).val(function(index, value) {
-                return value
-                .replace(/\D/g, "")
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                ;
-              });
             });
-                $("#phoneno").keypress(function (e) {
-                 //if the letter is not digit then display error and don't type anything
-                 if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-                    //display error message
-                           return false;
+        });
+
+        $("#publish").on('click',function(e) {
+            e.preventDefault();
+            $.ajax({
+                method:"POST",
+                url:"{{ url('User/investorPublishData') }}",
+                data:{"_token":"{{csrf_token()}}"},
+                success:function(response){
+                    var res = JSON.parse(response);
+                    if(res.msg =='success'){
+                        alert('Data published successfully');
+                        /*window.location.href="{{ url('User/index') }}";*/
+                    }else{
+                        alert('Data already published');
+                    }
                 }
-               });
-                $('.chosen-select').prop('disabled', true).trigger("chosen:updated");    
-                $(".chosen-select").chosen();
-               function userInvestorExpressed(id)
-                {
-                    window.location.href="{{ url('User/userProfileInvestor/') }}/"+id;
-                }
-                function userInvestorIntrestedIn(id)
-                {
-                    window.location.href="{{ url('User/userInvestorIntrestedIn/') }}/"+id;
-                }
-            </script>
+            });
+        });
+
+        $("#investorDetail").on('click',function(){
+            $('.chosen-select').removeAttr('disabled').trigger("chosen:updated");
+            $('.investorDetailsActive').find('input,select,textarea').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.chosen-choices').css({
+                'box-shadow' : '0 0 5px rgba(81, 203, 238, 1)',
+                'border' : '1px solid rgba(81, 203, 238, 1)'
+            });
+            $('.chosen-choices').find('input').css({
+                'box-shadow' : 'none',
+                'border' : 'none'
+            });
+            $('.investorDetailsActive').find('input').removeAttr('disabled');
+            $('.investorDetailsActive').find('select').removeAttr('disabled');
+            $('.investorDetailsActive').find('textarea').removeAttr('disabled');    
+            //$('.chosen-select').prop('disabled', false).trigger("liszt:updated");            
+        });
+
+    });
+
+    function viewInvestorProfile(id) {
+        window.location.href="{{ url('User/viewiProfile/') }}/"+id;
+    }
+    
+    $(document).ready(function() {
+        $('#textlimit').on('input propertychange', function() {
+            CharLimit(this, 50);
+        });
+    });
+
+    function CharLimit(input, maxChar) {
+        var len = $(input).val().length;
+        if (len > maxChar) {
+            $(input).val($(input).val().substring(0, maxChar));
+        }
+    }
+
+    $('input#assetUndermgmt').keyup(function(e) {
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+
+        // format number
+        $(this).val(function(index, value) {
+        return value
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        ;
+        });
+    }); 
+
+    $('input#investmentRangefrm').keyup(function(e) {
+
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+
+        // format number
+        $(this).val(function(index, value) {
+        return value
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        ;
+        });
+    });    
+
+    $('input#investmentRangeto').keyup(function(e) {
+
+        // skip for arrow keys
+        if(e.which >= 37 && e.which <= 40 && e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) return;
+
+        // format number
+        $(this).val(function(index, value) {
+        return value
+        .replace(/\D/g, "")
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        ;
+        });
+    });
+
+    $("#phoneno").keypress(function (e) {
+        //if the letter is not digit then display error and don't type anything
+        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+            //display error message
+            return false;
+        }
+    });
+    
+    $('.chosen-select').prop('disabled', true).trigger("chosen:updated");
+
+    $(".chosen-select").chosen();
+
+    function userInvestorExpressed(id) {
+        window.location.href="{{ url('User/userProfileInvestor/') }}/"+id;
+    }
+
+    function userInvestorIntrestedIn(id) {
+        window.location.href="{{ url('User/userInvestorIntrestedIn/') }}/"+id;
+    }
+</script>
                        
 <!-- Modal -->
 <div class="modal fade" id="modalImgEditor" role="dialog">
@@ -873,7 +955,8 @@ button#menu1 {
                         </div>
                         <div class="modal-body">
                             <div style="padding: 20px;margin: 20px;">
-                                <div id="imgContainer" style="height:250px;">
+                                <div id="imgContainer">
+                                    <img id="cropper-img" style="max-width: 100%;" />
                                 </div>
                             </div>
                             <div class="form-horizontal">
@@ -890,9 +973,12 @@ button#menu1 {
                     </div>
                 </div>
             </div>
+            
+            <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.css" />
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.min.js"></script>
 
-            <link rel="stylesheet" type="text/css" href="{{ asset('/js/croppie.css')}}" />
-            <script type="text/javascript" src="{{ asset('/js/croppie.js')}}"></script>
+            <!-- <link rel="stylesheet" type="text/css" href="{{ asset('/js/croppie.css')}}" /> -->
+            <!-- <script type="text/javascript" src="{{ asset('/js/croppie.js')}}"></script> -->
             <script type="text/javascript" src="{{ asset('/js/SMS.js')}}"></script>
        @endsection
 

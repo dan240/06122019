@@ -1,41 +1,40 @@
-     <style type="text/css">
-         .notification {
-   position: relative;
-  }
-.notification .badge {
+<style type="text/css">
+    .notification {
+        position: relative;
+    }
+    .notification .badge {
         position: absolute;
-    top: -4px;
-    right: -7px;
-    border-radius: 50%;
-    background-color: #2277b5;
-    color: white;
-    height: 20px;
-    width: 20px;
-    padding: 5px 0px;
-}
-.no-js #loader { display: none;  }
-.js #loader { display: block; position: absolute; left: 100px; top: 0; }
-.se-pre-con {
-  position: fixed;
-  left: 0px;
-  top: 0px;
-  width: 100%;
-  height: 100%;
-  z-index: 9999;
-  
-  display: none;
-}
-.resendEmail{
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 700;
-}
-     </style> 
+        top: -4px;
+        right: -7px;
+        border-radius: 50%;
+        background-color: #2277b5;
+        color: white;
+        height: 20px;
+        width: 20px;
+        padding: 5px 0px;
+    }
+    .no-js #loader { display: none;  }
+    .js #loader { display: block; position: absolute; left: 100px; top: 0; }
+    .se-pre-con {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        z-index: 9999;
+        
+        display: none;
+    }
+    .resendEmail{
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: 700;
+    }
+</style> 
 
-    
+<div class="se-pre-con" style="background: url(<?php echo url('/'); ?>/images/giphy.gif) center no-repeat #fff;"></div> 
 
-     <div class="se-pre-con" style="background: url(<?php echo url('/'); ?>/images/giphy.gif) center no-repeat #fff;"></div> 
-    <div class="header" id="myHeader">
+<div class="header" id="myHeader">
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" id="home" href="#"><img src="{{ asset('images/Logo%20LondCap.png')}}" /></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,10 +61,13 @@
                             <li class="nav-item"><a class="nav-link" id="about" href="#">About Us</a></li>
                             <?php if(!empty(Session::has('User.id'))) { ?>
                             <li class="nav-item"><a class="nav-link" id="event" href="#">Events</a></li>
-                            <li class="nav-item"><a class="nav-link notification" id="message" href="#"><i class="fa fa-envelope"></i><?php 
-                                $c = app('App\Http\Controllers\UserController')->getNotification(); 
-                                if($c>0){echo '<span class="badge">'.$c.'</span>' ;}?>
-                                </a></li>
+                            <li class="nav-item"><a class="nav-link notification" id="message" href="#"><i class="fa fa-envelope"></i>
+                            <?php 
+                                //$c = app('App\Http\Controllers\UserController')->getNotification(); 
+                                //if($c>0){echo '<span class="badge">'.$c.'</span>' ;}
+                            ?>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <div class="dropdown">
                                     <button class="dropbtn"><i class="fas fa-user"></i></button>
@@ -137,11 +139,15 @@
         </div>
         <hr style="border-top: 2px dotted #eee;">
         <p class="text-center">Log in with</p>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
+        <div class="row mb-2">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"><a type="button" href="{{ url('login/linkedin') }}" class="linkedin-btn"><i class="fab fa-linkedin-square "></i>Log in with LinkedIn</a>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6"> <a type="button" href="{{ url('login/facebook') }}" class="facebook-btn"><i class="fab fa-facebook-square"></i>Log in with Facebook</a>
             </div>
+        </div>
+        <hr style="border-top: 2px dotted #eee;">
+        <div class="mb-2 mt-2">
+            By logging in, I agree to the <a target="_blank" href="{{ url('User/terms-of-use') }}">Terms of Use.</a>
         </div>
         <hr style="border-top: 2px dotted #eee;">
         <p class="text-center"> New to LondCap? <a href="{{url('User/signupForm')}}" id="userSignup">Sign up</a></p>
@@ -161,8 +167,27 @@
         function userProfileInvestor(id){
          //   window.location.href="{{ url('User/userProfileInvestor/') }}/"+id;
             window.location.href="{{ url('User/editInvestorProfile/') }}/"+id;
-        }         
+        }      
+        
+        function updateMessageNotifications() {
+            $("#message span.badge").remove();
+
+            $.ajax({
+                type: 'GET',
+                url: "{{ url('getNotification') }}",
+                success: function (result) {
+                    if (result > 0) {
+                        $badge = "<span class='badge'>" + result + "</span>";
+
+                        $("#message").append($badge);
+                    }
+                }
+            });
+        }
+
         $(document).ready(function(){
+            updateMessageNotifications();
+
             $("#forgetPassword").click(function(){
                 window.location.href = "{{ url('User/forgetPasswordForm')}}"
             });
@@ -201,7 +226,7 @@
             });
 
             $("#event").click(function(){
-                 window.location.href = "{{ url('User/events')}}"
+                 window.location.href = "{{ url('User/news-and-events')}}"
             });
             $("#login-error").hide();
 

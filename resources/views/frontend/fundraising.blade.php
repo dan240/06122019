@@ -15,16 +15,16 @@
                     <div class="columns">
                     </div>
                     <div class="columns">
-                      <ul class="price">
-                        <li class="header">Plus
-                          <p>Lorem Ipsum is simply dummy text.</p></li>
-                        <li class="grey"><a href="https://www.paypal.com" class="button">Select Plus</a></li>
-                        <li><strong>$49.99/month*</strong></li>
-                         <li><i class="fas fa-check"></i> Lorem Ipsum is simply dummy text lorem Ipsum is simply</li>
-                        <li><i class="fas fa-check"></i> Lorem Ipsum is simply dummy text lorem Ipsum </li>
-                        <li><i class="fas fa-check"></i> Lorem Ipsum is simply dummy text lorem Ipsum is simply</li>
-                           <li><i class="fas fa-check"></i> Lorem Ipsum is simply dummy text lorem Ipsum is simply</li>
-                      </ul>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+							<input type="hidden" name="cmd" value="_s-xclick">
+                       		<input type="hidden" name="hosted_button_id" value="P3PL97JUSTKFJ">
+							<ul class="price">
+								<li class="header">Plus
+								<li><strong>$100/month</strong></li>
+								<li><input type="image" src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_buynowCC_LG.gif" border="0" name="submit" alt="PayPal – The safer, easier way to pay online!"></li>
+							</ul>
+                        	<img alt="" border="0" src="https://www.paypalobjects.com/en_GB/i/scr/pixel.gif" width="1" height="1">
+                      </form>
                     </div>
                 <div class="columns">
                 </div>

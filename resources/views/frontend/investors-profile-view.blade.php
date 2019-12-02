@@ -72,14 +72,14 @@ button#menu1 {
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
                     <div class="fb-profile-block">
                         <?php if(!empty($data['banner_name'])){?>
-                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('uploads/images/'.$data['banner_name']) }}');"></div>
+                        <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('public/uploads/images/'.$data['banner_name']) }}');"></div>
                         <?php } else{?>
                         <div id="bg-image" class="fb-profile-block-thumb " style="background-image: url('{{asset('images/profile_banner.jpg') }}')"></div>
                         <?php } ?>
                         <div class="profile-img">
                             <a href="#">
                                 <?php if(!empty($data['image_name'])){?>
-                                <img id="displayimage" src="{{ asset('uploads/images/'.$data['image_name'])}}" alt="" title="">
+                                <img id="displayimage" src="{{ asset('public/uploads/images/'.$data['image_name'])}}" alt="" title="">
                                 <?php } else{ ?>
                                     <img id="displayimage" src="{{ asset('images/user.png')}}" alt="" title="">
                                 <?php } ?>
@@ -130,7 +130,7 @@ button#menu1 {
                     <nav>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Inverstor Profile</li>
+                            <li class="breadcrumb-item active">Investor Profile</li>
                         </ol>
                     </nav>
                 </div>
@@ -165,22 +165,24 @@ button#menu1 {
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
-                                    <div class="form-group inner-label-holder"> <small class="label" for="input">Invesor Firm Name</small>
+                                    <div class="form-group inner-label-holder"> <small class="label" for="input">Investor Firm Name</small>
                                         <input type="text" class="form-control" name="firmName" value="{{ @$data['firmName']}}" readonly>
                                     </div>
                                 </div>
-                                <?php if($see_contacts=='yes'){?>
+
+                                <?php if ($see_contacts=='yes') { ?>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Email</small>
-                                        <input type="email" class="form-control" name="email" value="{{ @$data['user']['email']}}" readonly>
+                                        <input type="email" class="form-control" name="email" value="{{ @$data['user']['email'] }}" readonly>
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Phone Number</small>
-                                        <input type="text" class="form-control" name="phoneno" value="{{ @$data['user']['phone']}}" readonly>
+                                        <input type="text" class="form-control" name="phoneno" value="{{ @$data['phoneno'] }}" readonly>
                                     </div>
                                 </div>
                                 <?php } ?>
+
                                  <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
                                     <div class="form-group inner-label-holder"> <small class="label" for="input">Country</small>
                                         <input type="text" class="form-control" name="country" value="{{ @$data['country_data']['country_name']}}" readonly>
@@ -380,21 +382,20 @@ button#menu1 {
                             </div>
                             <div class="row">
                                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
-                                <?php $t = preg_replace(
-        "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
-        "//www.youtube.com/embed/$2",
-        $data['investorFirmvideo']
-    ); ?>
-                                  <iframe width="100%" height="500px" src="{{$t}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                                <?php
+                                    if ($data['investorFirmvideo'] && stripos($data['investorFirmvideo'], "https://www.youtube.com") !== false) {
+                                        $t = preg_replace(
+                                            "/\s*[a-zA-Z\/\/:\.]*youtu(be.com\/watch\?v=|.be\/)([a-zA-Z0-9\-_]+)([a-zA-Z0-9\/\*\-\_\?\&\;\%\=\.]*)/i",
+                                            "//www.youtube.com/embed/$2",
+                                            $data['investorFirmvideo']
+                                        );
+                                ?>
+                                    <iframe width="100%" height="500px" src="{{$t}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+                                <?php } ?>
+
                                 </div>
-                         
-                                
-
                             </div>
-
-
                         </div>
-
                     </div>
                 </div>
 
@@ -521,7 +522,7 @@ button#menu1 {
     <div class="input-group-prepend">
       <span class="input-group-text">$</span>
     </div>
-    <input type="text" class="form-control" name="reserved_amount" id="reserved_amount" placeholder="Maximum Reservation $6,000,000">
+    <input type="text" class="form-control" name="reserved_amount" id="reserved_amount" placeholder="Please propose reservation">
   </div>
          </div>  
         <div class="form-group"> <label>Add Comments</label>
